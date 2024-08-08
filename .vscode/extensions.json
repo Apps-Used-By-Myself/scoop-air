@@ -1,6 +1,5 @@
 {
     "recommendations": [
-        "EditorConfig.EditorConfig",
-        "ms-vscode.PowerShell"
+        "esbenp.prettier-vscode"
     ]
 }
