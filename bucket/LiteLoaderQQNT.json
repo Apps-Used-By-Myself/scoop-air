@@ -1,0 +1,21 @@
+{
+    "version": "1.2.0",
+    "description": "Lightweight, simple and open source QQNT plugin loader.",
+    "homepage": "https://github.com/LiteLoaderQQNT/LiteLoaderQQNT",
+    "license": "MIT",
+    "url": "https://github.com/LiteLoaderQQNT/LiteLoaderQQNT/releases/download/1.2.0/LiteLoaderQQNT.zip",
+    "hash": "93c8520eb7cf26d2b8e06df70dc1c0d831734498dc9fd3767c099b4fbd89f5c0",
+    "pre_install": [
+        "$config_json = \"$persist_dir\\config.json\"",
+        "if (!(Test-Path \"$config_json\")) { New-Item -ItemType File \"$config_json\" | Out-Null }"
+    ],
+    "persist": [
+        "data",
+        "plugins",
+        "config.json"
+    ],
+    "checkver": "github",
+    "autoupdate": {
+        "url": "https://github.com/LiteLoaderQQNT/LiteLoaderQQNT/releases/download/$version/LiteLoaderQQNT.zip"
+    }
+}
