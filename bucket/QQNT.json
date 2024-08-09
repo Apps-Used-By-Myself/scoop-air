@@ -36,7 +36,7 @@
         "if (!(Test-Path \"$patch_json\")) {",
         "    $liteLoaderPath = \"$(appdir LiteLoaderQQNT $global)\\current\"",
         "    $patchConfig = @{ LLPath = $liteLoaderPath } | ConvertTo-Json",
-        "    Set-Content -Path \"$patch_json\" -Value $patchConfig -Encoding UTF8",
+        "    New-Item -Path \"$patch_json\" -ItemType File -Value $patchConfig -Force | Out-Null",
         "}"
     ],
     "persist": "PatchConfig.json",
