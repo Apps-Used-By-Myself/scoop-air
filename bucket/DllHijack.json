@@ -14,7 +14,7 @@
         },
         "arm64": {
             "url": "https://github.com/LiteLoaderQQNT/QQNTFileVerifyPatch/releases/download/DllHijack_1.1.0/dbghelp_arm64.dll",
-            "hash": ""
+            "hash": "3f5eefac3f458f8687674fc69aba9d69d451a0e259eafcaec8b8bd543f04669a"
         }
     },
     "post_install": [
