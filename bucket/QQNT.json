@@ -8,7 +8,7 @@
     "version": "9.9.15.240808",
     "depends": [
         "air/DllHijack",
-        "LiteLoaderQQNT"
+        "air/LiteLoaderQQNT"
     ],
     "architecture": {
         "64bit": {
@@ -32,18 +32,24 @@
         ]
     ],
     "pre_install": [
+        "if (!(Test-Path \"$persist_dir\")) { New-Item -Path \"$persist_dir\" -Type Directory | Out-Null}",
         "$patch_json = \"$persist_dir\\PatchConfig.json\"",
-        "if (!(Test-Path \"$patch_json\")) {",
-        "    $liteLoaderPath = \"$(appdir LiteLoaderQQNT $global)\\current\"",
-        "    $patchConfig = @{ LLPath = $liteLoaderPath } | ConvertTo-Json",
-        "    New-Item -Path \"$patch_json\" -ItemType File -Value $patchConfig -Force | Out-Null",
+        "if (!(Test-Path $patch_json)) {",
+        "    $loader_dir = \"$(appdir LiteLoaderQQNT $global)\\current\"",
+        "    $patch_config = @{ LLPath = $loader_dir } | ConvertTo-Json",
+        "    Set-Content -Path $patch_json -Value $patch_config -Force -Encoding UTF8",
         "}"
     ],
     "persist": "PatchConfig.json",
     "post_install": [
-        "$hijackDllPath = \"$(appdir DllHijack $global)\\current\\dbghelp.dll\"",
-        "$qqntDllPath = \"$dir\\dbghelp.dll\"",
-        "Copy-Item \"$hijackDllPath\" \"$qqntDllPath\" -Force"
+        "$hijack_dll = \"$(appdir DllHijack $global)\\current\\dbghelp.dll\"",
+        "Copy-Item $hijack_dll \"$dir\" -Force",
+        "$versions_dir = \"$dir\\resources\\app\\versions\"",
+        "Get-ChildItem $versions_dir -Filter '*.zip' | Select-Object -First 1 | ForEach-Object {",
+        "    $destination = Join-Path $versions_dir $_.BaseName",
+        "    Expand-Archive $_.FullName -DestinationPath $destination -Force",
+        "    Remove-Item $_.FullName -Force",
+        "}"
     ],
     "checkver": {
         "script": [
