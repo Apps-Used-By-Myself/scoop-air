@@ -1,5 +1,5 @@
 {
-    "version": "6.0.3.0",
+    "version": "6.0.4.0",
     "description": "(Chinese version) A Todo list, checklist and task manager app.",
     "homepage": "https://dida365.com/",
     "license": {
@@ -8,12 +8,12 @@
     },
     "architecture": {
         "64bit": {
-            "url": "https://cdn.dida365.cn/download/win64/dida_wins_setup_release_x64_6030.exe",
-            "hash": "7efdd0bb7626267fda82c27a42d6149181d1ac50255403893e72a55d88cfe1c4"
+            "url": "https://cdn.dida365.cn/download/win64/dida_win_setup_release_x64_6040.exe",
+            "hash": "5c285e55a0c1f45cc3c4761984abc691185e05785aaf3fce9734f85970300d8e"
         },
         "32bit": {
-            "url": "https://cdn.dida365.cn/download/win/dida_wins_setup_release_x86_6030.exe",
-            "hash": "9e02e2a201aec470a41cec1f3324b8cc2a95682bf7a5ae5de1d927cd432adb6c"
+            "url": "https://cdn.dida365.cn/download/win/dida_win_setup_release_x86_6040.exe",
+            "hash": "97a5c1177d600f2306dcad634ed29a6f6b85eaf06ca6c20b74083617b6c4c852"
         }
     },
     "innosetup": true,
@@ -40,10 +40,10 @@
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://cdn.dida365.cn/download/win64/dida_wins_setup_release_x64_$cleanVersion.exe"
+                "url": "https://cdn.dida365.cn/download/win64/dida_win_setup_release_x64_$cleanVersion.exe"
             },
             "32bit": {
-                "url": "https://cdn.dida365.cn/download/win/dida_wins_setup_release_x86_$cleanVersion.exe"
+                "url": "https://cdn.dida365.cn/download/win/dida_win_setup_release_x86_$cleanVersion.exe"
             }
         }
     }
