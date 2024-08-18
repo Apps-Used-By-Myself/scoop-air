@@ -1,14 +1,12 @@
-# Air
+# 🎐Air🎐
 
 ## Attention
 
 This is a very personalized bucket, and many of the manifests installed in it are beta versions of the application with some preprocessing.
 
+Many manifests rely on `scripts/AirUtils.psm1` and therefore cannot be used without this bucket installed.
+
 Please check the manifests for changes and make sure they match your needs before installing.
-
-If you only need a few apps from this repository, use `scoop install https://raw.githubusercontent.com/wordpure/scoop-air/main/bucket/<manifestname>.json` to install them instead of adding the bucket.
-
-Because `air` is very high in the alphabetical order of unofficial buckets, installing apps without specifying a bucket may inadvertently install apps from this bucket.
 
 ## Usage
 
