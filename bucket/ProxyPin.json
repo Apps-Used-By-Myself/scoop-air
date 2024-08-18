@@ -1,0 +1,42 @@
+{
+    "version": "V1.1.1",
+    "description": "Open source free packet capture tool，Support Windows、Mac、Android、IOS、Linux Full platform system",
+    "homepage": "https://github.com/wanghongenpin/network_proxy_flutter",
+    "license": "Apache-2.0",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/wanghongenpin/network_proxy_flutter/releases/download/V1.1.1/ProxyPin-Windows.zip",
+            "hash": "c7abe3e45f456fdbcfebd7057adb1cc769b3b319dfff4b1dcfe07b4478e13334"
+        }
+    },
+    "extract_dir": "ProxyPin",
+    "shortcuts": [
+        [
+            "ProxyPin.exe",
+            "ProxyPin"
+        ]
+    ],
+    "pre_install": [
+        "Import-Module $(Join-Path $(Find-BucketDirectory -Root -Name air) scripts/AirUtils.psm1)",
+        "RedirectDir \"$env:APPDATA\\com.proxy.pin\\ProxyPin\" \"$persist_dir\\com.proxy.pin\\ProxyPin\"",
+        "RedirectDir \"$env:USERPROFILE\\.proxypin\" \"$persist_dir\\.proxypin\"",
+        "Remove-Module -Name AirUtils"
+    ],
+    "pre_uninstall": [
+        "Import-Module $(Join-Path $(Find-BucketDirectory -Root -Name air) scripts/AirUtils.psm1)",
+        "RemoveJunction \"$env:APPDATA\\com.proxy.pin\\ProxyPin\"",
+        "RemoveJunction \"$env:USERPROFILE\\.proxypin\"",
+        "Remove-Module -Name AirUtils"
+    ],
+    "checkver": {
+        "url": "https://github.com/wanghongenpin/network_proxy_flutter/releases/latest",
+        "regex": "/network_proxy_flutter/tree/v?([^/]+?)\""
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/wanghongenpin/network_proxy_flutter/releases/download/$version/ProxyPin-Windows.zip"
+            }
+        }
+    }
+}
