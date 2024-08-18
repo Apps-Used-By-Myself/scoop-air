@@ -1,7 +1,7 @@
 function WriteLog {
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory = $true)]
         [string]$Message,
         [ValidateSet('Info', 'Warning', 'Error')]
         [string]$Level = 'Info'
@@ -24,17 +24,18 @@ function WriteLog {
 }
 
 function IsDirectoryEmpty {
+    [CmdletBinding()]
     param ([string]$Path)
 
     $item = Get-Item $Path -Force
     return [string]::IsNullOrEmpty($item.GetFiles("*", [System.IO.SearchOption]::AllDirectories)) -and
-           [string]::IsNullOrEmpty($item.GetDirectories("*", [System.IO.SearchOption]::AllDirectories))
+    [string]::IsNullOrEmpty($item.GetDirectories("*", [System.IO.SearchOption]::AllDirectories))
 }
 
 function EnsureFile {
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory=$true, Position=0, ValueFromPipeline=$true, ValueFromRemainingArguments=$true)]
+        [Parameter(Mandatory = $true, Position = 0, ValueFromPipeline = $true, ValueFromRemainingArguments = $true)]
         [string[]]$Paths
     )
 
@@ -50,7 +51,7 @@ function EnsureFile {
 function EnsureDir {
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory=$true, Position=0, ValueFromPipeline=$true, ValueFromRemainingArguments=$true)]
+        [Parameter(Mandatory = $true, Position = 0, ValueFromPipeline = $true, ValueFromRemainingArguments = $true)]
         [string[]]$Paths
     )
 
@@ -64,6 +65,7 @@ function EnsureDir {
 }
 
 function WriteFile {
+    [CmdletBinding()]
     param (
         [string]$FilePath,
         [string]$Content,
@@ -76,6 +78,7 @@ function WriteFile {
 }
 
 function RedirectDir {
+    [CmdletBinding()]
     param (
         [string]$DataDir,
         [string]$PersistDir
@@ -97,9 +100,9 @@ function RedirectDir {
     EnsureDir -DirectoryPath $PersistDir
 
     if (!(Test-Path $DataDir)) {
-      New-Item -ItemType Junction -Path $DataDir -Target $PersistDir | Out-Null
-      WriteLog "Created junction from ""$DataDir"" to ""$PersistDir""." -Level 'Info'
-      return
+        New-Item -ItemType Junction -Path $DataDir -Target $PersistDir | Out-Null
+        WriteLog "Created junction from ""$DataDir"" to ""$PersistDir""." -Level 'Info'
+        return
     }
 
     $dataEmpty = IsDirectoryEmpty $DataDir
