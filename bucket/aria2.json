@@ -1,0 +1,39 @@
+{
+    "version": "1.37.0.1",
+    "description": "(msys2 build with custom patches) Lightweight multi-protocol & multi-source command-line download utility",
+    "homepage": "https://github.com/myfreeer/aria2-build-msys2",
+    "license": " GPL-3.0-only",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/myfreeer/aria2-build-msys2/releases/download/1.37.0.1/aria2c.7z",
+            "hash": "3f85043ac96cce5164a8b853cba37703bdab535bb2dd9bb222346fd238ececc2"
+        },
+        "32bit": {
+            "url": "https://github.com/myfreeer/aria2-build-msys2/releases/download/1.37.0.1/aria2c_x86.7z",
+            "hash": "b42b75941a0416a585072ec8f9a8189d40a8ee824cc34cefdbb5578f468ec557"
+        }
+    },
+    "bin": "aria2c.exe",
+    "pre_install": [
+        "if (Test-Path \"$persist_dir\") {",
+        "    Copy-Item \"$persist_dir\\*\" $dir -Recurse -Force",
+        "} else {",
+        "    New-Item -Path \"$persist_dir\" -Type Directory | Out-Null",
+        "}"
+    ],
+    "pre_uninstall": "Get-ChildItem \"$dir\" -Exclude 'aria2c.exe', 'install.json', 'manifest.json' | Copy-Item -Destination \"$persist_dir\" -Recurse -Force",
+    "checkver": {
+        "url": "https://api.github.com/repos/myfreeer/aria2-build-msys2/releases",
+        "jsonpath": "$[0].tag_name"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/myfreeer/aria2-build-msys2/releases/download/$version/aria2c.7z"
+            },
+            "32bit": {
+                "url": "https://github.com/myfreeer/aria2-build-msys2/releases/download/$version/aria2c_x86.7z"
+            }
+        }
+    }
+}
