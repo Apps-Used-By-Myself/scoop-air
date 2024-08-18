@@ -32,13 +32,15 @@
         ]
     ],
     "pre_install": [
-        "if (!(Test-Path \"$persist_dir\")) { New-Item -Path \"$persist_dir\" -Type Directory | Out-Null}",
+        "Import-Module $(Join-Path $(Find-BucketDirectory -Root -Name air) scripts/AirUtils.psm1)",
+        "EnsureDir \"$persist_dir\"",
         "$patch_json = \"$persist_dir\\PatchConfig.json\"",
         "if (!(Test-Path $patch_json)) {",
         "    $loader_dir = \"$(appdir LiteLoaderQQNT $global)\\current\"",
         "    $patch_config = @{ LLPath = $loader_dir } | ConvertTo-Json",
-        "    Set-Content -Path $patch_json -Value $patch_config -Force -Encoding UTF8",
-        "}"
+        "    WriteFile $patch_json $patch_config",
+        "}",
+        "Remove-Module -Name AirUtils"
     ],
     "persist": "PatchConfig.json",
     "post_install": [
