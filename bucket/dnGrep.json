@@ -1,0 +1,72 @@
+{
+    "version": "4.2.59.0",
+    "description": "Graphical GREP tool to search across text files, Word and Excel documents, PDFs and archives",
+    "homepage": "http://dngrep.github.io/",
+    "license": "GPL-3.0-only",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/dnGrep/dnGrep/releases/download/v4.2.59.0/dnGREP.4.2.59.0.x64.zip",
+            "hash": "149a289f2b71ec51cc42350ec7ed7074ca1244d70d9b2f886f3c35381fe37f7d"
+        },
+        "32bit": {
+            "url": "https://github.com/dnGrep/dnGrep/releases/download/v4.2.59.0/dnGREP.4.2.59.0.x86.zip",
+            "hash": "676a898257165caa48cd488e7dd98cf2f34e381a9bbf3dc4956027e6b74f00ee"
+        }
+    },
+    "bin": [
+        [
+            "dnGREP.exe",
+            "dngrep"
+        ]
+    ],
+    "shortcuts": [
+        [
+            "dnGREP.exe",
+            "dnGrep"
+        ]
+    ],
+    "pre_install": [
+        "Import-Module $(Join-Path $(Find-BucketDirectory -Root -Name air) scripts/AirUtils.psm1)",
+        "EnsureDir \"$persist_dir\\Filters\", \"$persist_dir\\logs\", \"$persist_dir\\Scripts\", \"$persist_dir\\Themes\"",
+        "$bookmarks_path = \"$persist_dir\\bookmarks.xml\"",
+        "if (!(Test-Path $bookmarks_path)) {",
+        "    $bookmarks_content = '<?xml version=\"1.0\" encoding=\"utf-8\"?><BookmarkEntity xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Bookmarks></Bookmarks></BookmarkEntity>'",
+        "    WriteFile $bookmarks_path $bookmarks_content",
+        "}",
+        "$settings_path = \"$persist_dir\\dnGREP.Settings.dat\"",
+        "if (!(Test-Path $settings_path)) {",
+        "    $setting_content = '<?xml version=\"1.0\" encoding=\"utf-8\"?><dictionary version=\"3\" xmlns:xml=\"http://www.w3.org/XML/1998/namespace\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"></dictionary>'",
+        "    WriteFile $settings_path $setting_content",
+        "}",
+        "Remove-Module -Name AirUtils"
+    ],
+    "persist": [
+        "Filters",
+        "logs",
+        "Scripts",
+        "Themes",
+        "bookmarks.xml",
+        "dnGREP.Settings.dat"
+    ],
+    "checkver": {
+        "github": "https://github.com/dnGrep/dnGrep"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/dnGrep/dnGrep/releases/download/v$version/dnGREP.$version.x64.zip",
+                "hash": {
+                    "url": "https://github.com/dnGrep/dnGrep/releases/v$version",
+                    "regex": "x64.zip[<>/\\w\\n: \\(\\)]+SHA256: ($sha256)"
+                }
+            },
+            "32bit": {
+                "url": "https://github.com/dnGrep/dnGrep/releases/download/v$version/dnGREP.$version.x86.zip",
+                "hash": {
+                    "url": "https://github.com/dnGrep/dnGrep/releases/v$version",
+                    "find": "x86.zip[<>/\\w\\n: \\(\\)]+SHA256: ($sha256)"
+                }
+            }
+        }
+    }
+}
