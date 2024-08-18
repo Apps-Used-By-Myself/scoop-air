@@ -73,7 +73,7 @@ function WriteFile {
     )
 
     $directory = Split-Path -Path $FilePath -Parent
-    EnsureDir -DirectoryPath $directory
+    EnsureDir $directory
     Set-Content -Path $FilePath -Value $Content -Encoding $Encoding -Force
 }
 
@@ -97,7 +97,7 @@ function RedirectDir {
         }
     }
 
-    EnsureDir -DirectoryPath $PersistDir
+    EnsureDir $PersistDir
 
     if (!(Test-Path $DataDir)) {
         New-Item -ItemType Junction -Path $DataDir -Target $PersistDir | Out-Null
