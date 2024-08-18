@@ -136,6 +136,7 @@ function RedirectDir {
 }
 
 function RemoveJunction {
+    [CmdletBinding()]
     param ([string]$Path)
 
     if (Test-Path $Path -PathType Container) {
@@ -146,4 +147,19 @@ function RemoveJunction {
     }
 }
 
-Export-ModuleMember -Function WriteLog, IsDirectoryEmpty, EnsureFile, EnsureDir, WriteFile, RedirectDir, RemoveJunction
+function RemoveDesktopShortcut {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true)]
+        [string]$ShortcutName
+    )
+
+    $desktopPath = [Environment]::GetFolderPath('Desktop')
+    $shortcutPath = Join-Path $desktopPath "$ShortcutName.lnk"
+
+    if (Test-Path $shortcutPath) {
+        Remove-Item $shortcutPath -Force
+    }
+}
+
+Export-ModuleMember -Function WriteLog, IsDirectoryEmpty, EnsureFile, EnsureDir, WriteFile, RedirectDir, RemoveJunction, RemoveDesktopShortcut
