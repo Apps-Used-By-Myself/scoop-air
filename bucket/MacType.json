@@ -1,0 +1,37 @@
+{
+    "version": "1.2023.5.31",
+    "description": "(Contains preview version) Provides better font rendering for Windows",
+    "homepage": "https://mactype.net",
+    "license": "GPL-3.0-or-later",
+    "url": "https://github.com/snowie2000/mactype/releases/download/v1.2023.5.31/mactype-20230531.zip",
+    "hash": "9e96cdff9fde0cafc31f3bec759f6eda9bd3e4ce5863f7343ed301244123e85b",
+    "shortcuts": [
+        [
+            "MacTray.exe",
+            "MacType Tray"
+        ],
+        [
+            "MacTuner.exe",
+            "MacType Tuner"
+        ],
+        [
+            "MacWiz.exe",
+            "MacType Wizard"
+        ],
+        [
+            "VisTuner.exe",
+            "MacType Visual Tuner"
+        ]
+    ],
+    "persist": [
+        "ini",
+        "MacType.ini"
+    ],
+    "checkver": {
+        "url": "https://api.github.com/repos/snowie2000/mactype/releases?per_page=1",
+        "regex": "tag/v([\\w.-]+).*?mactype-(?<file>[\\d]+)\\.zip"
+    },
+    "autoupdate": {
+        "url": "https://github.com/snowie2000/mactype/releases/download/v$version/mactype-$matchFile.zip"
+    }
+}
