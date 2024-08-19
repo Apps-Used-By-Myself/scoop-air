@@ -1,6 +1,6 @@
 {
     "version": "1.37.0.1",
-    "description": "(msys2 build with custom patches) Lightweight multi-protocol & multi-source command-line download utility",
+    "description": "(MSYS2 build with custom patches) Lightweight multi-protocol & multi-source command-line download utility",
     "homepage": "https://github.com/myfreeer/aria2-build-msys2",
     "license": " GPL-3.0-only",
     "architecture": {
@@ -23,7 +23,7 @@
     ],
     "pre_uninstall": "Get-ChildItem \"$dir\" -Exclude 'aria2c.exe', 'install.json', 'manifest.json' | Copy-Item -Destination \"$persist_dir\" -Recurse -Force",
     "checkver": {
-        "url": "https://api.github.com/repos/myfreeer/aria2-build-msys2/releases",
+        "url": "https://api.github.com/repos/myfreeer/aria2-build-msys2/releases?per_page=1",
         "jsonpath": "$[0].tag_name"
     },
     "autoupdate": {
