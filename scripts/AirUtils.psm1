@@ -150,16 +150,45 @@ function RemoveJunction {
 function RemoveDesktopShortcut {
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory = $true)]
-        [string]$ShortcutName
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [string[]]$ShortcutNames
     )
 
-    $desktopPath = [Environment]::GetFolderPath('Desktop')
-    $shortcutPath = Join-Path $desktopPath "$ShortcutName.lnk"
+    $desktops = @(
+        [Environment]::GetFolderPath('Desktop'),
+        [Environment]::GetFolderPath('CommonDesktopDirectory')
+    )
 
-    if (Test-Path $shortcutPath) {
-        Remove-Item $shortcutPath -Force
+    foreach ($desktop in $desktops) {
+        foreach ($name in $ShortcutNames) {
+            $shortcutPath = Join-Path $desktop "$name.lnk"
+            if (Test-Path $shortcutPath) {
+                Remove-Item $shortcutPath -Force -ErrorAction SilentlyContinue
+            }
+        }
     }
 }
 
-Export-ModuleMember -Function WriteLog, IsDirectoryEmpty, EnsureFile, EnsureDir, WriteFile, RedirectDir, RemoveJunction, RemoveDesktopShortcut
+function RemoveStartMenuItem {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [string[]]$RelativePaths
+    )
+
+    $startMenus = @(
+        [System.Environment]::GetFolderPath('CommonStartMenu'),
+        [System.Environment]::GetFolderPath('StartMenu')
+    ) | ForEach-Object { Join-Path $_ "Programs" }
+
+    foreach ($base in $startMenus) {
+        foreach ($path in $RelativePaths) {
+            $fullPath = Join-Path $base $path
+            if (Test-Path $fullPath) {
+                Remove-Item $fullPath -Recurse -Force -ErrorAction SilentlyContinue
+            }
+        }
+    }
+}
+
+Export-ModuleMember -Function WriteLog, IsDirectoryEmpty, EnsureFile, EnsureDir, WriteFile, RedirectDir, RemoveJunction, RemoveDesktopShortcut, RemoveStartMenuItem
