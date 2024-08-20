@@ -6,10 +6,6 @@
         "url": "https://ti.qq.com/agreement/index.html"
     },
     "version": "9.9.15.240819",
-    "depends": [
-        "air/DllHijack",
-        "air/LiteLoaderQQNT"
-    ],
     "architecture": {
         "64bit": {
             "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Windows/QQ_9.9.15_240819_x64_01.exe#/dl.7z",
@@ -28,13 +24,26 @@
     "shortcuts": [
         [
             "QQ.exe",
-            "QQNT"
+            "QQ"
         ]
+    ],
+    "depends": [
+        "LiteLoaderQQNT",
+        "DllHijack"
     ],
     "pre_install": [
         "Import-Module $(Join-Path $(Find-BucketDirectory -Root -Name air) scripts/AirUtils.psm1)",
-        "EnsureDir \"$persist_dir\"",
-        "$patch_json = \"$persist_dir\\PatchConfig.json\"",
+        "$patch_dll = \"$persist_dir\\dbghelp.dll\"",
+        "if (!(Test-Path $patch_dll)) {",
+        "    $hijack_dir = $(appdir 'DllHijack' $global)",
+        "    $arch = switch ($architecture) {",
+        "        'arm64' { 'arm64' }",
+        "        '64bit' { 'x64' }",
+        "        default { 'x86' }",
+        "    }",
+        "    Copy-Item -Path \"$hijack_dir\\dbghelp_$arch.dll\" -Destination \"$persist_dir\\dbghelp.dll\" -Force",
+        "}",
+        "$patch_json = \"$persist_dir\\resources\\app\\app_launcher\\PatchConfig.json\"",
         "if (!(Test-Path $patch_json)) {",
         "    $loader_dir = \"$(appdir LiteLoaderQQNT $global)\\current\"",
         "    $patch_config = @{ LLPath = $loader_dir } | ConvertTo-Json",
@@ -42,10 +51,11 @@
         "}",
         "Remove-Module -Name AirUtils"
     ],
-    "persist": "PatchConfig.json",
+    "persist": [
+        "dbghelp.dll",
+        "resources\\app\\app_launcher\\PatchConfig.json"
+    ],
     "post_install": [
-        "$hijack_dll = \"$(appdir DllHijack $global)\\current\\dbghelp.dll\"",
-        "Copy-Item $hijack_dll \"$dir\" -Force",
         "$versions_dir = \"$dir\\resources\\app\\versions\"",
         "Get-ChildItem $versions_dir -Filter '*.zip' | Select-Object -First 1 | ForEach-Object {",
         "    $destination = Join-Path $versions_dir $_.BaseName",
