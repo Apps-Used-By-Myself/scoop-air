@@ -27,7 +27,6 @@
     ],
     "pre_install": [
         "Import-Module $(Join-Path $(Find-BucketDirectory -Root -Name air) scripts/AirUtils.psm1)",
-        "EnsureDir \"$persist_dir\\Filters\", \"$persist_dir\\logs\", \"$persist_dir\\Scripts\", \"$persist_dir\\Themes\"",
         "$bookmarks_path = \"$persist_dir\\bookmarks.xml\"",
         "if (!(Test-Path $bookmarks_path)) {",
         "    $bookmarks_content = '<?xml version=\"1.0\" encoding=\"utf-8\"?><BookmarkEntity xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Bookmarks></Bookmarks></BookmarkEntity>'",
