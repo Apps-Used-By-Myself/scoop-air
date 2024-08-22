@@ -1,0 +1,53 @@
+{
+    "version": "4.20",
+    "description": "A hard drive disk space analyser that finds the files and folders using the most space.",
+    "homepage": "https://diskanalyzer.com",
+    "license": {
+        "identifier": "Freeware",
+        "url": "https://diskanalyzer.com/eula"
+    },
+    "url": "https://diskanalyzer.com/files/wiztree_4_20_portable.zip",
+    "hash": "8e336d7ac8d4028cab6bf552bd63fa12277694deb575f8fd3d4b585eb6b84ccb",
+    "architecture": {
+        "64bit": {
+            "bin": [
+                [
+                    "WizTree64.exe",
+                    "WizTree"
+                ]
+            ],
+            "shortcuts": [
+                [
+                    "WizTree64.exe",
+                    "WizTree"
+                ]
+            ]
+        },
+        "32bit": {
+            "bin": "WizTree.exe",
+            "shortcuts": [
+                [
+                    "WizTree.exe",
+                    "WizTree"
+                ]
+            ]
+        }
+    },
+    "pre_install": [
+        "Import-Module $(Join-Path $(Find-BucketDirectory -Root -Name air) scripts/AirUtils.psm1)",
+        "$ini_path = \"$persist_dir\\WizTree3.ini\"",
+        "if (!(Test-Path \"$ini_path\")) {",
+        "    $ini_content = \"[frmWizTreeMain]`r`nactCheckForUpdates_Checked=FALSE\"",
+        "    WriteFile $ini_path $ini_content",
+        "}",
+        "Remove-Module -Name AirUtils"
+    ],
+    "persist": "WizTree3.ini",
+    "checkver": {
+        "url": "https://antibody-software.com/files/wiztreeversion.php",
+        "regex": "VERSION=([\\d.]+)"
+    },
+    "autoupdate": {
+        "url": "https://diskanalyzer.com/files/wiztree_$underscoreVersion_portable.zip"
+    }
+}
