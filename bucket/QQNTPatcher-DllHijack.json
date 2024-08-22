@@ -1,6 +1,6 @@
 {
     "version": "1.1.0",
-    "description": "QQNT Patcher",
+    "description": "DllHijack method for QQNT Patcher",
     "homepage": "https://github.com/LiteLoaderQQNT/QQNTFileVerifyPatch",
     "license": "MIT",
     "architecture": {
