@@ -77,6 +77,34 @@ function WriteFile {
     Set-Content -Path $FilePath -Value $Content -Encoding $Encoding -Force
 }
 
+function ForceNewHardLink {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true)]
+        [string]$Link,
+
+        [Parameter(Mandatory = $true)]
+        [string]$Target
+    )
+
+    if (!(Test-Path $Target)) {
+        WriteLog "Target file does not exist: $Target" -Level 'Error'
+        return
+    }
+
+    if (Test-Path $Link) {
+        Remove-Item -Path $Link -Force
+        WriteLog "Existing file at link path removed: $Link" -Level 'Warning'
+    }
+
+    $result = New-Item -ItemType HardLink -Path $Link -Target $Target -Force -ErrorAction Stop
+
+    if ($result) {
+        WriteLog "Hard link created successfully: $Link -> $Target" -Level 'Info'
+    }
+
+}
+
 function RedirectDir {
     [CmdletBinding()]
     param (
@@ -191,4 +219,4 @@ function RemoveStartMenuItem {
     }
 }
 
-Export-ModuleMember -Function WriteLog, IsDirectoryEmpty, EnsureFile, EnsureDir, WriteFile, RedirectDir, RemoveJunction, RemoveDesktopShortcut, RemoveStartMenuItem
+Export-ModuleMember -Function WriteLog, IsDirectoryEmpty, EnsureFile, EnsureDir, WriteFile, ForceNewHardLink, RedirectDir, RemoveJunction, RemoveDesktopShortcut, RemoveStartMenuItem
