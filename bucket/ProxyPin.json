@@ -18,8 +18,8 @@
     ],
     "pre_install": [
         "Import-Module $(Join-Path $(Find-BucketDirectory -Root -Name air) scripts/AirUtils.psm1)",
-        "RedirectDir \"$env:APPDATA\\com.proxy.pin\" \"$persist_dir\\com.proxy.pin\"",
-        "RedirectDir \"$env:USERPROFILE\\.proxypin\" \"$persist_dir\\.proxypin\"",
+        "RedirectDir \"$env:APPDATA\\com.proxy.pin\" \"$persist_dir\\APPDATA\\com.proxy.pin\"",
+        "RedirectDir \"$env:USERPROFILE\\.proxypin\" \"$persist_dir\\USERPROFILE\\.proxypin\"",
         "Remove-Module -Name AirUtils"
     ],
     "pre_uninstall": [
