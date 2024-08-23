@@ -38,7 +38,7 @@
         "$ini_path = \"$persist_dir\\WizTree3.ini\"",
         "if (!(Test-Path \"$ini_path\")) {",
         "    $ini_content = \"[frmWizTreeMain]`r`nactCheckForUpdates_Checked=FALSE\"",
-        "    WriteFile $ini_path $ini_content",
+        "    EnsureSetContent $ini_path $ini_content",
         "}",
         "Remove-Module -Name AirUtils"
     ],
