@@ -92,9 +92,20 @@ function EnsureHardLink {
         return
     }
 
+    $parentDir = Split-Path -Parent $Link
+    if (!(Test-Path $parentDir)) {
+        EnsureDir $parentDir
+    }
+
     if (Test-Path $Link) {
-        Remove-Item -Path $Link -Force
-        WriteLog "Existing file at link path removed: $Link" -Level 'Warning'
+        $bakPath = "$Link.bak"
+        $counter = 1
+        while (Test-Path $bakPath) {
+            $bakPath = "$Link.bak$counter"
+            $counter++
+        }
+        Move-Item -Path $Link -Destination $bakPath -Force
+        WriteLog "Existing file at link path renamed to: $bakPath" -Level 'Warning'
     }
 
     $result = New-Item -ItemType HardLink -Path $Link -Target $Target -Force -ErrorAction Stop
@@ -103,6 +114,22 @@ function EnsureHardLink {
         WriteLog "Hard link created successfully: $Link -> $Target" -Level 'Info'
     }
 
+}
+
+function RemoveHardLink {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true)]
+        [string]$Path
+    )
+
+    if (Test-Path -Path $Path -PathType Leaf) {
+        $fileInfo = Get-Item -Path $Path
+
+        if ($fileInfo.LinkType -eq "HardLink") {
+            Remove-Item -Path $Path -Force
+        }
+    }
 }
 
 function RedirectDirectory {
@@ -219,4 +246,4 @@ function RemoveStartMenuItem {
     }
 }
 
-Export-ModuleMember -Function WriteLog, TestDirectoryEmpty, EnsureFile, EnsureDir, EnsureSetContent, EnsureHardLink, RedirectDirectory, RemoveJunction, RemoveDesktopShortcut, RemoveStartMenuItem
+Export-ModuleMember -Function WriteLog, TestDirectoryEmpty, EnsureFile, EnsureDir, EnsureSetContent, EnsureHardLink, RemoveHardLink, RedirectDirectory, RemoveJunction, RemoveDesktopShortcut, RemoveStartMenuItem
