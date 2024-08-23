@@ -23,7 +23,7 @@ function WriteLog {
     }
 }
 
-function IsDirectoryEmpty {
+function TestDirectoryEmpty {
     [CmdletBinding()]
     param ([string]$Path)
 
@@ -64,7 +64,7 @@ function EnsureDir {
     }
 }
 
-function WriteFile {
+function EnsureSetContent {
     [CmdletBinding()]
     param (
         [string]$FilePath,
@@ -77,7 +77,7 @@ function WriteFile {
     Set-Content -Path $FilePath -Value $Content -Encoding $Encoding -Force
 }
 
-function ForceNewHardLink {
+function EnsureHardLink {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true)]
@@ -105,7 +105,7 @@ function ForceNewHardLink {
 
 }
 
-function RedirectDir {
+function RedirectDirectory {
     [CmdletBinding()]
     param (
         [string]$DataDir,
@@ -133,8 +133,8 @@ function RedirectDir {
         return
     }
 
-    $dataEmpty = IsDirectoryEmpty $DataDir
-    $persistEmpty = IsDirectoryEmpty $PersistDir
+    $dataEmpty = TestDirectoryEmpty $DataDir
+    $persistEmpty = TestDirectoryEmpty $PersistDir
 
     if (!$dataEmpty -and $persistEmpty) {
         #/E：复制子目录，包括空目录
@@ -219,4 +219,4 @@ function RemoveStartMenuItem {
     }
 }
 
-Export-ModuleMember -Function WriteLog, IsDirectoryEmpty, EnsureFile, EnsureDir, WriteFile, ForceNewHardLink, RedirectDir, RemoveJunction, RemoveDesktopShortcut, RemoveStartMenuItem
+Export-ModuleMember -Function WriteLog, TestDirectoryEmpty, EnsureFile, EnsureDir, EnsureSetContent, EnsureHardLink, RedirectDirectory, RemoveJunction, RemoveDesktopShortcut, RemoveStartMenuItem

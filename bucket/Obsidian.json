@@ -20,7 +20,7 @@
         "Expand-7zipArchive $targetArchive \"$dir\"",
         "Remove-Item \"$dir\\`$PLUGINSDIR\", \"$dir\\`$R0\" -Force -Recurse",
         "# Redirect data directory to persist",
-        "RedirectDir \"$env:APPDATA\\obsidian\" \"$persist_dir\\APPDATA\\obsidian\"",
+        "RedirectDirectory \"$env:APPDATA\\obsidian\" \"$persist_dir\\APPDATA\\obsidian\"",
         "Remove-Module -Name AirUtils"
     ],
     "pre_uninstall": [
