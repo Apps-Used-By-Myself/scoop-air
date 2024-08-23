@@ -98,14 +98,8 @@ function EnsureHardLink {
     }
 
     if (Test-Path $Link) {
-        $bakPath = "$Link.bak"
-        $counter = 1
-        while (Test-Path $bakPath) {
-            $bakPath = "$Link.bak$counter"
-            $counter++
-        }
-        Move-Item -Path $Link -Destination $bakPath -Force
-        WriteLog "Existing file at link path renamed to: $bakPath" -Level 'Warning'
+        Remove-Item -Path $Link -Force
+        WriteLog "Existing file at link path removed: $Link" -Level 'Warning'
     }
 
     $result = New-Item -ItemType HardLink -Path $Link -Target $Target -Force -ErrorAction Stop
