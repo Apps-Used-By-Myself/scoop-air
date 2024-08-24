@@ -1,0 +1,75 @@
+{
+    "version": "1.92.2",
+    "description": "Lightweight but powerful source code editor",
+    "homepage": "https://code.visualstudio.com/",
+    "license": {
+        "identifier": "Freeware",
+        "url": "https://code.visualstudio.com/License/"
+    },
+    "notes": [
+        "Add Visual Studio Code as a context menu option by running:",
+        "'reg import \"$dir\\install-context.reg\"'",
+        "For file associations, run:",
+        "'reg import \"$dir\\install-associations.reg\"'"
+    ],
+    "architecture": {
+        "64bit": {
+            "url": "https://code.visualstudio.com/sha/download?version=1.92.2&os=win32-x64-archive#/dl.zip",
+            "hash": "f4f4470d96371fe15b73e48956545697b0b6af465fff3543f752825caf00ef2c"
+        },
+        "arm64": {
+            "url": "https://code.visualstudio.com/sha/download?version=1.92.2&os=win32-arm64-archive#/dl.zip",
+            "hash": "30dab4aeb3f0059c20e2cfc28f30b80eddd376f85426d110df2e8fd7aa74341a"
+        }
+    },
+    "env_add_path": "bin",
+    "shortcuts": [
+        [
+            "code.exe",
+            "Visual Studio Code"
+        ]
+    ],
+    "post_install": [
+        "Import-Module $(Join-Path $(Find-BucketDirectory -Root -Name air) scripts/AirUtils.psm1)",
+        "EnsureDirectory \"$persist_dir\\data\\tmp\"",
+        "$dirpath = \"$dir\".Replace('\\', '\\\\')",
+        "$exepath = \"$dir\\Code.exe\".Replace('\\', '\\\\')",
+        "'install-associations', 'uninstall-associations', 'install-context', 'uninstall-context' | ForEach-Object {",
+        "  if (Test-Path \"$bucketsdir\\air\\scripts\\VSCode\\$_.reg\") {",
+        "    $content = Get-Content \"$bucketsdir\\air\\scripts\\VSCode\\$_.reg\"",
+        "    $content = $content.Replace('$codedir', $dirpath).Replace('$code', $exepath)",
+        "    if ($global) {",
+        "      $content = $content.Replace('HKEY_CURRENT_USER', 'HKEY_LOCAL_MACHINE')",
+        "    }",
+        "    $content | Set-Content -Path \"$dir\\$_.reg\"",
+        "  }",
+        "}",
+        "Remove-Module -Name AirUtils"
+    ],
+    "uninstaller": {
+        "script": "if ($cmd -eq 'uninstall') { reg import \"$dir\\uninstall-context.reg\" }"
+    },
+    "persist": "data",
+    "checkver": {
+        "url": "https://code.visualstudio.com/sha?build=stable",
+        "jsonpath": "$.products[?(@.platform.os == 'win32-x64-archive')].name"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://code.visualstudio.com/sha/download?version=$version&os=win32-x64-archive#/dl.zip",
+                "hash": {
+                    "url": "https://code.visualstudio.com/sha?build=stable",
+                    "jsonpath": "$.products[?(@.platform.os == 'win32-x64-archive')].sha256hash"
+                }
+            },
+            "arm64": {
+                "url": "https://code.visualstudio.com/sha/download?version=$version&os=win32-arm64-archive#/dl.zip",
+                "hash": {
+                    "url": "https://code.visualstudio.com/sha?build=stable",
+                    "jsonpath": "$.products[?(@.platform.os == 'win32-arm64-archive')].sha256hash"
+                }
+            }
+        }
+    }
+}
