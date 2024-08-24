@@ -48,7 +48,7 @@ function EnsureFile {
     }
 }
 
-function EnsureDir {
+function EnsureDirectory {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true, Position = 0, ValueFromPipeline = $true, ValueFromRemainingArguments = $true)]
@@ -73,7 +73,7 @@ function EnsureSetContent {
     )
 
     $directory = Split-Path -Path $FilePath -Parent
-    EnsureDir $directory
+    EnsureDirectory $directory
     Set-Content -Path $FilePath -Value $Content -Encoding $Encoding -Force
 }
 
@@ -94,7 +94,7 @@ function EnsureHardLink {
 
     $parentDir = Split-Path -Parent $Link
     if (!(Test-Path $parentDir)) {
-        EnsureDir $parentDir
+        EnsureDirectory $parentDir
     }
 
     if (Test-Path $Link) {
@@ -146,7 +146,7 @@ function RedirectDirectory {
         }
     }
 
-    EnsureDir $PersistDir
+    EnsureDirectory $PersistDir
 
     if (!(Test-Path $DataDir)) {
         New-Item -ItemType Junction -Path $DataDir -Target $PersistDir | Out-Null
@@ -240,4 +240,4 @@ function RemoveStartMenuItem {
     }
 }
 
-Export-ModuleMember -Function WriteLog, TestDirectoryEmpty, EnsureFile, EnsureDir, EnsureSetContent, EnsureHardLink, RemoveHardLink, RedirectDirectory, RemoveJunction, RemoveDesktopShortcut, RemoveStartMenuItem
+Export-ModuleMember -Function WriteLog, TestDirectoryEmpty, EnsureFile, EnsureDirectory, EnsureSetContent, EnsureHardLink, RemoveHardLink, RedirectDirectory, RemoveJunction, RemoveDesktopShortcut, RemoveStartMenuItem
