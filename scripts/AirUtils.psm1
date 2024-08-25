@@ -15,8 +15,7 @@ function WriteLog {
             Write-Information -MessageData $formattedMessage -InformationAction Continue
         }
         'Success' {
-            $successColor = $Host.PrivateData.SuccessBackgroundColor
-            Write-Host $formattedMessage -ForegroundColor $successColor
+            Write-Host $formattedMessage -ForegroundColor Green
         }
         'Warning' {
             Write-Warning -Message $formattedMessage
