@@ -87,8 +87,8 @@ function EnsureHardLink {
         [string]$Target
     )
 
-    if (!(Test-Path $Target)) {
-        WriteLog "Target file does not exist: $Target" -Level 'Error'
+    if (!(Test-Path $Target -PathType Leaf)) {
+        WriteLog "Target is not a file or does not exist: $Target" -Level 'Error'
         return
     }
 
@@ -99,7 +99,6 @@ function EnsureHardLink {
 
     if (Test-Path $Link) {
         Remove-Item -Path $Link -Force
-        WriteLog "Existing file at link path removed: $Link" -Level 'Warning'
     }
 
     $result = New-Item -ItemType HardLink -Path $Link -Target $Target -Force -ErrorAction Stop
@@ -107,7 +106,6 @@ function EnsureHardLink {
     if ($result) {
         WriteLog "Hard link created successfully: $Link -> $Target" -Level 'Info'
     }
-
 }
 
 function RemoveHardLink {
@@ -122,6 +120,49 @@ function RemoveHardLink {
 
         if ($fileInfo.LinkType -eq "HardLink") {
             Remove-Item -Path $Path -Force
+        }
+    }
+}
+
+function EnsureJunction {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true)]
+        [string]$Link,
+
+        [Parameter(Mandatory = $true)]
+        [string]$Target
+    )
+
+    if (!(Test-Path $Target -PathType Container)) {
+        WriteLog "Target is not a directory or does not exist: $Target" -Level 'Error'
+        return
+    }
+
+    $parentDir = Split-Path -Parent $Link
+    if (!(Test-Path $parentDir)) {
+        EnsureDirectory $parentDir
+    }
+
+    if (Test-Path $Link) {
+        Remove-Item $Link -Recurse -Force
+    }
+
+    $result = New-Item -ItemType Junction -Path $Link -Target $Target -Force -ErrorAction Stop
+
+    if ($result) {
+        WriteLog "Junction created successfully: $Link -> $Target" -Level 'Info'
+    }
+}
+
+function RemoveJunction {
+    [CmdletBinding()]
+    param ([string]$Path)
+
+    if (Test-Path $Path -PathType Container) {
+        $item = Get-Item $Path -Force
+        if ($item.LinkType -eq "Junction") {
+            Remove-Item $Path -Force
         }
     }
 }
@@ -184,17 +225,6 @@ function RedirectDirectory {
     WriteLog "Created junction from ""$DataDir"" to ""$PersistDir""." -Level 'Info'
 }
 
-function RemoveJunction {
-    [CmdletBinding()]
-    param ([string]$Path)
-
-    if (Test-Path $Path -PathType Container) {
-        $item = Get-Item $Path -Force
-        if ($item.LinkType -eq "Junction") {
-            Remove-Item $Path -Force
-        }
-    }
-}
 
 function RemoveDesktopShortcut {
     [CmdletBinding()]
@@ -240,4 +270,4 @@ function RemoveStartMenuItem {
     }
 }
 
-Export-ModuleMember -Function WriteLog, TestDirectoryEmpty, EnsureFile, EnsureDirectory, EnsureSetContent, EnsureHardLink, RemoveHardLink, RedirectDirectory, RemoveJunction, RemoveDesktopShortcut, RemoveStartMenuItem
+Export-ModuleMember -Function WriteLog, TestDirectoryEmpty, EnsureFile, EnsureDirectory, EnsureSetContent, EnsureHardLink, RemoveHardLink, EnsureJunction, RemoveJunction, RedirectDirectory, RemoveDesktopShortcut, RemoveStartMenuItem
