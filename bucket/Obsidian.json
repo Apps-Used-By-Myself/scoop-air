@@ -8,6 +8,12 @@
     },
     "url": "https://github.com/obsidianmd/obsidian-releases/releases/download/v1.6.7/Obsidian-1.6.7.exe#/dl.7z",
     "hash": "a5f647be9200c9cd82fd0bdd8b86fa6a8ed958fbc7e1651ea7e921c282a17f1f",
+    "shortcuts": [
+        [
+            "Obsidian.exe",
+            "Obsidian"
+        ]
+    ],
     "pre_install": [
         "Import-Module $(Join-Path $(Find-BucketDirectory -Root -Name air) scripts/AirUtils.psm1)",
         "# Extract Archive",
@@ -27,12 +33,6 @@
         "Import-Module $(Join-Path $(Find-BucketDirectory -Root -Name air) scripts/AirUtils.psm1)",
         "RemoveJunction \"$env:APPDATA\\obsidian\"",
         "Remove-Module -Name AirUtils"
-    ],
-    "shortcuts": [
-        [
-            "Obsidian.exe",
-            "Obsidian"
-        ]
     ],
     "checkver": {
         "github": "https://github.com/obsidianmd/obsidian-releases"
