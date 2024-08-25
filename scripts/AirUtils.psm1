@@ -3,16 +3,20 @@ function WriteLog {
     param (
         [Parameter(Mandatory = $true)]
         [string]$Message,
-        [ValidateSet('Info', 'Warning', 'Error')]
+        [ValidateSet('Info', 'Success', 'Warning', 'Error')]
         [string]$Level = 'Info'
     )
 
     $timestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
-    $formattedMessage = "`n[$timestamp] [$Level] $Message"
+    $formattedMessage = "[$timestamp] [$Level] $Message"
 
     switch ($Level) {
         'Info' {
             Write-Information -MessageData $formattedMessage -InformationAction Continue
+        }
+        'Success' {
+            $successColor = $Host.PrivateData.SuccessBackgroundColor
+            Write-Host $formattedMessage -ForegroundColor $successColor
         }
         'Warning' {
             Write-Warning -Message $formattedMessage
@@ -104,7 +108,7 @@ function EnsureHardLink {
     $result = New-Item -ItemType HardLink -Path $Link -Target $Target -Force -ErrorAction Stop
 
     if ($result) {
-        WriteLog "Hard link created successfully: $Link -> $Target" -Level 'Info'
+        WriteLog "Hard link created successfully: $Link -> $Target" -Level 'Success'
     }
 }
 
@@ -151,7 +155,7 @@ function EnsureJunction {
     $result = New-Item -ItemType Junction -Path $Link -Target $Target -Force -ErrorAction Stop
 
     if ($result) {
-        WriteLog "Junction created successfully: $Link -> $Target" -Level 'Info'
+        WriteLog "Junction created successfully: $Link -> $Target" -Level 'Success'
     }
 }
 
@@ -191,7 +195,7 @@ function RedirectDirectory {
 
     if (!(Test-Path $DataDir)) {
         New-Item -ItemType Junction -Path $DataDir -Target $PersistDir | Out-Null
-        WriteLog "Created junction from ""$DataDir"" to ""$PersistDir""." -Level 'Info'
+        WriteLog "Junction created successfully: $DataDir -> $PersistDir." -Level 'Success'
         return
     }
 
@@ -222,7 +226,7 @@ function RedirectDirectory {
     }
 
     New-Item -ItemType Junction -Path $DataDir -Target $PersistDir | Out-Null
-    WriteLog "Created junction from ""$DataDir"" to ""$PersistDir""." -Level 'Info'
+    WriteLog "Junction created successfully: $DataDir -> $PersistDir." -Level 'Success'
 }
 
 
