@@ -1,0 +1,51 @@
+{
+    "version": "1.9.1",
+    "description": "7-Zip plugin for the leading-edge compression methods; zstd, Brotli, LZ4, LZ5, Lizard, and Fast LZMA2.",
+    "homepage": "https://www.tc4shell.com/en/7zip/modern7z/",
+    "license": "Unknown",
+    "depends": "7zip",
+    "url": "https://www.tc4shell.com/binary/Modern7z.zip",
+    "hash": "2a36eb972133d55ce417ad39d40ab9f4b2a96a22fb3dcf57e25d3665f10f465b",
+    "architecture": {
+        "64bit": {
+            "extract_dir": "64"
+        },
+        "32bit": {
+            "extract_dir": "32"
+        }
+    },
+    "post_install": [
+        "Import-Module $(Join-Path $(Find-BucketDirectory -Root -Name air) scripts/AirUtils.psm1)",
+        "$codecs_path = \"$(persistdir '7zip' $global)\\Codecs\"",
+        "Get-ChildItem -Path $dir | ForEach-Object {",
+        "    $target_path = $_.FullName",
+        "    $item_name = $_.Name",
+        "    $link_path = Join-Path $codecs_path $item_name",
+        "    if ($_.PSIsContainer) {",
+        "        EnsureJunction $link_path $target_path",
+        "    } elseif ($_.Extension -eq '.dll') {",
+        "        EnsureHardLink $link_path $target_path",
+        "    }",
+        "}",
+        "Remove-Module -Name AirUtils"
+    ],
+    "uninstaller": {
+        "script": [
+            "if ($cmd -eq 'uninstall') {",
+            "    Import-Module $(Join-Path $(Find-BucketDirectory -Root -Name air) scripts/AirUtils.psm1)",
+            "    $codecs_path = \"$(persistdir '7zip' $global)\\Codecs\"",
+            "    $folder_names = @('brotli', 'fast-lzma2', 'lizard', 'lz4', 'lz5', 'zstd')",
+            "    foreach ($folder_name in $folder_names) {",
+            "        RemoveJunction (Join-Path $codecs_path $folder_name)",
+            "    }",
+            "    $arch = if ($architecture -eq '64bit') { '64' } else { '32' }",
+            "    RemoveHardLink (Join-Path $codecs_path \"Modern7z.$arch.dll\")",
+            "    Remove-Module -Name AirUtils",
+            "}"
+        ]
+    },
+    "checkver": "Plugin version: ([\\d.]+)",
+    "autoupdate": {
+        "url": "https://www.tc4shell.com/binary/Modern7z.zip"
+    }
+}

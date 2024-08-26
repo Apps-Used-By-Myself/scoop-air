@@ -1,0 +1,59 @@
+{
+    "version": "24.08",
+    "description": "7zip with NSIS script decompliling",
+    "homepage": "https://github.com/myfreeer/7z-build-nsis",
+    "license": "LGPL-2.1-or-later",
+    "notes": [
+        "Add more 7Zip Codecs Plugins by running:",
+        "scoop install air/7zip-zstd-codecs air/Modern7z",
+        "Add more 7Zip Formats Plugins by running:",
+        "scoop install air/Asar7z air/eDecoder air/ExFat7z air/Forensic7z air/Grit7z air/Iso7z air/Lzip7z air/Phar7z air/Py7z air/Thumbs7z"
+    ],
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/myfreeer/7z-build-nsis/releases/download/24.08/7z2408-x64.exe",
+            "hash": "f1113e6fb62f327b7857b4190d22571589916f96a7591002cb9aaaf559efb095"
+        },
+        "32bit": {
+            "url": "https://github.com/myfreeer/7z-build-nsis/releases/download/24.08/7z2408-x86.exe",
+            "hash": "07ade333f7f7dae36f96a6699ce5bcb5e029f261386cf00c3cb2ba7b03e02ce3"
+        }
+    },
+    "bin": [
+        "7z.exe",
+        "7zFM.exe",
+        "7zG.exe"
+    ],
+    "shortcuts": [
+        [
+            "7zFM.exe",
+            "7-Zip"
+        ]
+    ],
+    "persist": [
+        "Codecs",
+        "Formats"
+    ],
+    "installer": {
+        "args": [
+            "/S",
+            "/D=$dir"
+        ]
+    },
+    "uninstaller": {
+        "script": [
+            "if ($cmd -eq 'uninstall') { Invoke-ExternalCommand \"$dir\\Uninstall.exe\" -ArgumentList '/S' -Quiet}"
+        ]
+    },
+    "checkver": "github",
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/myfreeer/7z-build-nsis/releases/download/$version/7z$cleanVersion-x64.exe"
+            },
+            "32bit": {
+                "url": "https://github.com/myfreeer/7z-build-nsis/releases/download/$version/7z$cleanVersion-x86.exe"
+            }
+        }
+    }
+}
