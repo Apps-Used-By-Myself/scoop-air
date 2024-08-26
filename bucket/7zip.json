@@ -40,6 +40,11 @@
             "/D=$dir"
         ]
     },
+    "post_install": [
+        "Import-Module $(Join-Path $(Find-BucketDirectory -Root -Name air) scripts/AirUtils.psm1)",
+        "RemoveStartMenuItem '7-Zip'",
+        "Remove-Module -Name AirUtils"
+    ],
     "uninstaller": {
         "script": [
             "if ($cmd -eq 'uninstall') { Invoke-ExternalCommand \"$dir\\Uninstall.exe\" -ArgumentList '/S' -Quiet}"
