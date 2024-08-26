@@ -7,7 +7,7 @@ function WriteLog {
         [string]$Level = 'Info'
     )
 
-    $timestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
+    $timestamp = Get-Date -Format 'HH:mm:ss'
     $formattedMessage = "[$timestamp] [$Level] $Message"
 
     switch ($Level) {
@@ -107,7 +107,7 @@ function EnsureHardLink {
     $result = New-Item -ItemType HardLink -Path $Link -Target $Target -Force -ErrorAction Stop
 
     if ($result) {
-        WriteLog "Hard link created successfully: $Link -> $Target" -Level 'Success'
+        WriteLog "Hard link created successfully: $Link => $Target" -Level 'Info'
     }
 }
 
@@ -154,7 +154,7 @@ function EnsureJunction {
     $result = New-Item -ItemType Junction -Path $Link -Target $Target -Force -ErrorAction Stop
 
     if ($result) {
-        WriteLog "Junction created successfully: $Link -> $Target" -Level 'Success'
+        WriteLog "Junction created successfully: $Link => $Target" -Level 'Info'
     }
 }
 
@@ -194,7 +194,7 @@ function RedirectDirectory {
 
     if (!(Test-Path $DataDir)) {
         New-Item -ItemType Junction -Path $DataDir -Target $PersistDir | Out-Null
-        WriteLog "Junction created successfully: $DataDir -> $PersistDir." -Level 'Success'
+        WriteLog "Junction created successfully: $DataDir => $PersistDir." -Level 'Info'
         return
     }
 
@@ -225,7 +225,7 @@ function RedirectDirectory {
     }
 
     New-Item -ItemType Junction -Path $DataDir -Target $PersistDir | Out-Null
-    WriteLog "Junction created successfully: $DataDir -> $PersistDir." -Level 'Success'
+    WriteLog "Junction created successfully: $DataDir => $PersistDir." -Level 'Info'
 }
 
 
