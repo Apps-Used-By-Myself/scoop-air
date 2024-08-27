@@ -1,5 +1,5 @@
 {
-    "version": "V1.1.2",
+    "version": "1.1.2",
     "description": "Open source free packet capture tool，Support Windows、Mac、Android、IOS、Linux Full platform system",
     "homepage": "https://github.com/wanghongenpin/network_proxy_flutter",
     "license": "Apache-2.0",
@@ -32,14 +32,11 @@
             "}"
         ]
     },
-    "checkver": {
-        "url": "https://github.com/wanghongenpin/network_proxy_flutter/releases/latest",
-        "regex": "/network_proxy_flutter/tree/v?([^/]+?)\""
-    },
+    "checkver": "github",
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://github.com/wanghongenpin/network_proxy_flutter/releases/download/$version/ProxyPin-Windows.zip"
+                "url": "https://github.com/wanghongenpin/network_proxy_flutter/releases/download/V$version/ProxyPin-Windows.zip"
             }
         }
     }
