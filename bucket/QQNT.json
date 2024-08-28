@@ -6,6 +6,7 @@
         "identifier": "Proprietary",
         "url": "https://ti.qq.com/agreement/index.html"
     },
+    "notes": "Scoop don't persist QQNT data.",
     "depends": [
         "LiteLoaderQQNT",
         "QQNTPatcher-DllHijack"
