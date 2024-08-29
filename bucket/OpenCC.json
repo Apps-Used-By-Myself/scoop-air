@@ -1,0 +1,36 @@
+{
+    "homepage": "https://opencc.byvoid.com/",
+    "description": "Open source command line tool for conversions between Traditional Chinese, Simplified Chinese and Japanese Kanji (Shinjitai)",
+    "version": "1.1.9",
+    "license": "APL-2.0",
+    "architecture": {
+        "64bit": {
+            "url": "https://ci.appveyor.com/api/projects/Carbo/opencc/artifacts/OpenCC.zip?branch=master&job=Environment:%20nodejs_version=none;%20Platform:%20x64#OpenCC.zip",
+            "hash": "8fb8fdd914ae1226d998ead33a104b0273879a72fd3860e293f7db423a340e3b"
+        },
+        "32bit": {
+            "url": "https://ci.appveyor.com/api/projects/Carbo/opencc/artifacts/OpenCC.zip?branch=master&job=Environment:%20nodejs_version=none;%20Platform:%20x86#OpenCC.zip",
+            "hash": "e5b97da8554724698cf7fc22a75cc2a5db0d4d279506725908f007534bce4569"
+        }
+    },
+    "extract_dir": "build",
+    "bin": [
+        "bin\\opencc.exe",
+        "bin\\opencc_dict.exe",
+        "bin\\opencc_phrase_extract.exe"
+    ],
+    "checkver": {
+        "url": "https://github.com/BYVoid/OpenCC/releases/latest",
+        "regex": "/releases/tag/ver.([\\d.]+)"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://ci.appveyor.com/api/projects/Carbo/opencc/artifacts/OpenCC.zip?branch=master&job=Environment:%20nodejs_version=none;%20Platform:%20x64#OpenCC.zip"
+            },
+            "32bit": {
+                "url": "https://ci.appveyor.com/api/projects/Carbo/opencc/artifacts/OpenCC.zip?branch=master&job=Environment:%20nodejs_version=none;%20Platform:%20x86#OpenCC.zip"
+            }
+        }
+    }
+}
