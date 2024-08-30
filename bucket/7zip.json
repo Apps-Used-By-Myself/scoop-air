@@ -4,10 +4,9 @@
     "homepage": "https://github.com/myfreeer/7z-build-nsis",
     "license": "LGPL-2.1-or-later",
     "notes": [
-        "Add more 7Zip Codecs Plugins by running:",
-        "scoop install air/7zip-zstd-codecs air/Modern7z",
-        "Add more 7Zip Formats Plugins by running:",
-        "scoop install air/Asar7z air/eDecoder air/ExFat7z air/Forensic7z air/Grit7z air/Iso7z air/Lzip7z air/Phar7z air/Py7z air/Thumbs7z"
+        "Visit 7-Zip-zstd and TC4Shell 7-Zip plugins to add more Codecs and Formats to 7zip:",
+        "https://github.com/mcmilk/7-Zip-zstd/releases",
+        "https://www.tc4shell.com/en/7zip/"
     ],
     "architecture": {
         "64bit": {
