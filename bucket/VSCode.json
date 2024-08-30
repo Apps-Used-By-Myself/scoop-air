@@ -22,7 +22,12 @@
             "hash": "30dab4aeb3f0059c20e2cfc28f30b80eddd376f85426d110df2e8fd7aa74341a"
         }
     },
-    "env_add_path": "bin",
+    "bin": [
+        [
+            "Code.exe",
+            "code"
+        ]
+    ],
     "shortcuts": [
         [
             "code.exe",
