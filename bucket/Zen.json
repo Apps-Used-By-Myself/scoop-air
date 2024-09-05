@@ -1,13 +1,13 @@
 {
-    "version": "1.0.0-a.35",
+    "version": "1.0.0-a.37",
     "description": "(LibPortable patched) Firefox based browser with a focus on privacy and customization.",
     "homepage": "https://www.zen-browser.app/",
     "license": "MPL-2.0",
     "depends": "LibPortable",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/zen-browser/desktop/releases/download/1.0.0-a.35/zen.win-generic.zip",
-            "hash": "5ee5d9153426375c6c607af91e0f02ab12dde608f475b9bf29ec412f129c2a70"
+            "url": "https://github.com/zen-browser/desktop/releases/download/1.0.0-a.37/zen.win-generic.zip",
+            "hash": "590fd7dc9c014186cf863571d31efeda540f2b30b0a82b4570b888f9dd020e6b"
         }
     },
     "extract_dir": "zen",
