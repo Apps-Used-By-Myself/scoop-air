@@ -3,7 +3,7 @@
     "description": "Powerful knowledge base that works on top of a local folder of plain text Markdown files.",
     "homepage": "https://obsidian.md",
     "license": {
-        "identifier": "Unknown",
+        "identifier": "Proprietary",
         "url": "https://obsidian.md/eula"
     },
     "url": "https://github.com/obsidianmd/obsidian-releases/releases/download/v1.6.7/Obsidian-1.6.7.exe#/dl.7z",
