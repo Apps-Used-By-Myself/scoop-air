@@ -17,10 +17,10 @@
             "hash": "897f69c03f8d5d10199048c71353400d92d4cad16cdb41fdb7d25d7ad3b6317a"
         }
     },
-    "post_install": "Remove-Item \"$dir\\`$*\", \"$dir\\Uninst*\" -Force -Recurse",
+    "extract_dir": "[3.9.12.15]",
     "shortcuts": [
         [
-            "wechat.exe",
+            "WeChat.exe",
             "微信"
         ]
     ],
@@ -39,6 +39,7 @@
             "32bit": {
                 "url": "https://dldir1v6.qq.com/weixin/Windows/WeChatSetup_x86.exe#/dl.7z"
             }
-        }
+        },
+        "extract_dir": "[$version]"
     }
 }
