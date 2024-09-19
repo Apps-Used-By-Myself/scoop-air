@@ -22,7 +22,11 @@
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://github.com/ZGGSONG/STranslate/releases/download/$version/STranslate_$version_win-x64_7z.7z"
+                "url": "https://github.com/ZGGSONG/STranslate/releases/download/$version/STranslate_$version_win-x64_7z.7z",
+                "hash": {
+                    "url": "https://github.com/ZGGSONG/STranslate/releases/download/$version/STranslate_$version_win-x64_sha256.txt",
+                    "regex": "win-x64\\.zip\\s+$sha256"
+                }
             }
         }
     }
