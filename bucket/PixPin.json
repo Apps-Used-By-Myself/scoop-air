@@ -4,7 +4,7 @@
     "homepage": "https://pixpinapp.com/",
     "license": "Unknown",
     "url": "https://download.pixpinapp.com/PixPin_1.8.27.0.zip",
-    "hash": "7f989319c561c338d7bcf0e0d3ab7bfc8e9f0140b238bc34670efc425c9d7ae7",
+    "hash": "sha1:f5b480bdbf573308c33b27f397bf1afa4577f6f8",
     "extract_dir": "PixPin",
     "bin": [
         [
@@ -32,6 +32,10 @@
         "regex": "(.*)"
     },
     "autoupdate": {
-        "url": "https://download.pixpinapp.com/PixPin_$version.zip"
+        "url": "https://download.pixpinapp.com/PixPin_$version.zip",
+        "hash": {
+            "url": "https://pixpinapp.com/change-log/$majorVersion.$minorVersion.$patchVersion",
+            "regex": "<strong>Windows便携版</strong>:\\s+$sha1"
+        }
     }
 }
