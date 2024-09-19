@@ -2,7 +2,7 @@
     "version": "1.8.27.0",
     "description": "(Beta version) A powerful screenshot tool with Annotation,Pin to Screen, Scroll Screenshot, OCR and GIF features.",
     "homepage": "https://pixpinapp.com/",
-    "license": "Unknown",
+    "license": "Proprietary",
     "url": "https://download.pixpinapp.com/PixPin_1.8.27.0.zip",
     "hash": "sha1:f5b480bdbf573308c33b27f397bf1afa4577f6f8",
     "extract_dir": "PixPin",
