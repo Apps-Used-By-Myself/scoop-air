@@ -6,11 +6,11 @@
     "depends": "LibPortable",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/zen-browser/desktop/releases/download/1.0.1-a.2/zen.win-generic.zip",
+            "url": "https://github.com/zen-browser/desktop/releases/download/1.0.1-a.2/zen.win-specific.zip",
             "hash": "350f8d210bb0d0042baa708e3d8b497ae1266a6c3dd967b04436d1d561c1a230"
         }
     },
-    "extract_dir": "zen",
+    "extract_dir": "zen.win-specific/zen",
     "bin": "zen.exe",
     "shortcuts": [
         [
@@ -39,7 +39,6 @@
     ],
     "post_install": [
         "Import-Module $(Join-Path $(Find-BucketDirectory -Root -Name air) scripts/AirUtils.psm1)",
-        "Remove-Item \"$dir\\updater.exe\" -Force -ErrorAction Ignore",
         "# Portable",
         "$lib_dir = scoop prefix 'LibPortable'",
         "$portable_dll = \"portable64.dll\"",
@@ -62,7 +61,7 @@
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://github.com/zen-browser/desktop/releases/download/$version/zen.win-generic.zip"
+                "url": "https://github.com/zen-browser/desktop/releases/download/$version/zen.win-specific.zip"
             }
         }
     }
