@@ -1,7 +1,7 @@
 {
-    "version": "9.9.15.240925",
+    "version": "9.9.15.28327",
     "homepage": "https://im.qq.com/pcqq/index.shtml",
-    "description": "(LiteLoaderQQNT patch) An instant messaging software service developed by Tencent, build with Electron.",
+    "description": "(Beta version with LiteLoaderQQNT patch) An instant messaging software service developed by Tencent, build with Electron.",
     "license": {
         "identifier": "Proprietary",
         "url": "https://ti.qq.com/agreement/index.html"
@@ -13,16 +13,12 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Windows/QQ_9.9.15_240925_x64_01.exe#/dl.7z",
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/512caf78/QQ9.9.15.28327_x64.exe#/dl.7z",
             "hash": "6dc60f581891a282c6aae9e873a0b5555bc65eaa4f51d8779934ebd0bdb689a9"
         },
         "32bit": {
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Windows/QQ_9.9.15_240925_x86_01.exe#/dl.7z",
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/fe485b46/QQ9.9.15.28327_x86.exe#/dl.7z",
             "hash": "0f472dd8e466951095c3e8debef484628d7ba72c439d62368c04bce1610049b0"
-        },
-        "arm64": {
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Windows/QQ_9.9.15_240925_arm64_01.exe#/dl.7z",
-            "hash": "905151eb89422f282b5f743d42caf29979d299727eb56d0681f0f5c749580af4"
         }
     },
     "extract_dir": "Files",
@@ -32,60 +28,58 @@
             "QQ"
         ]
     ],
-    "persist": [
-        "dbghelp.dll",
-        "resources\\app\\app_launcher\\PatchConfig.json"
-    ],
     "pre_install": [
         "Import-Module $(Join-Path $(Find-BucketDirectory -Root -Name air) scripts/AirUtils.psm1)",
-        "$patch_dll = \"$persist_dir\\dbghelp.dll\"",
-        "if (!(Test-Path $patch_dll)) {",
-        "    $hijack_dir = scoop prefix 'QQNTPatcher-DllHijack'",
-        "    $arch = switch ($architecture) {",
-        "        'arm64' { 'arm64' }",
-        "        '64bit' { 'x64' }",
-        "        default { 'x86' }",
-        "    }",
-        "    EnsureHardLink $patch_dll \"$hijack_dir\\dbghelp_$arch.dll\"",
+        "# Patch with DllHijack",
+        "$hijack_dir = scoop prefix 'QQNTPatcher-DllHijack'",
+        "$arch = switch ($architecture) {",
+        "    'arm64' { 'arm64' }",
+        "    '64bit' { 'x64' }",
+        "    default { 'x86' }",
         "}",
-        "$patch_json = \"$persist_dir\\resources\\app\\app_launcher\\PatchConfig.json\"",
-        "if (!(Test-Path $patch_json)) {",
-        "    $loader_dir = scoop prefix 'LiteLoaderQQNT'",
-        "    $patch_config = @{ LLPath = $loader_dir } | ConvertTo-Json",
-        "    EnsureSetContent $patch_json $patch_config",
-        "}",
+        "EnsureHardLink \"$dir\\dbghelp.dll\" \"$hijack_dir\\dbghelp_$arch.dll\"",
+        "# Import LiteLoaderQQNT",
+        "$version_text = $version -replace '(\\d+\\.\\d+\\.\\d+)\\.(\\d+)', '$1-$2'",
+        "$patch_js = \"$dir\\versions\\$version_text\\resources\\app\\app_launcher\\patch.js\"",
+        "$loader_dir = scoop prefix 'LiteLoaderQQNT'",
+        "$patch_content = 'require(String.raw`' + $loader_dir + '`)'",
+        "EnsureSetContent $patch_js $patch_content",
+        "# Import package",
+        "$package_json = \"$dir\\versions\\$version_text\\resources\\app\\package.json\"",
+        "$json_object = Get-Content -Path $package_json -Raw | ConvertFrom-Json",
+        "$json_object.main = \"./app_launcher/patch.js\"",
+        "$updated_content = $json_object | ConvertTo-Json -Depth 100",
+        "EnsureSetContent $package_json $updated_content",
         "Remove-Module -Name AirUtils"
-    ],
-    "post_install": [
-        "$versions_dir = \"$dir\\resources\\app\\versions\"",
-        "Get-ChildItem $versions_dir -Filter '*.zip' | Select-Object -First 1 | ForEach-Object {",
-        "    $destination = Join-Path $versions_dir $_.BaseName",
-        "    Expand-Archive $_.FullName -DestinationPath $destination -Force",
-        "    Remove-Item $_.FullName -Force",
-        "}"
     ],
     "checkver": {
         "script": [
-            "$html = Invoke-WebRequest -Uri \"https://im.qq.com/pcqq/index.shtml\" -UseBasicParsing",
-            "$regex1 = '//.*/im.qq.com_new/.*/windowsDownloadUrl\\.js(\\?t=[0-9]+)?'",
-            "$links = ([regex]::Matches($html.Content, $regex1)).value",
-            "$allContent = $links | ForEach-Object { (Invoke-WebRequest -Uri ('https:' + $_) -UseBasicParsing).Content } | Out-String",
-            "$regex2 = 'QQNT/Windows/QQ_([0-9.]+)_([0-9]+)_x64_01.exe'",
-            "(([regex]::Matches($allContent, $regex2)).value | Sort-Object -Descending -CaseSensitive)[0] | Out-String"
+            "$url = 'https://telemetr.io/en/channels/1606833156-qqupdates'",
+            "$webContent = (Invoke-WebRequest -Uri $url).Content",
+            "$x64Regex = 'https://dldir1\\.qq\\.com/qqfile/qq/QQNT/[\\da-z]+/QQ([\\d.]+)_x64\\.exe'",
+            "$x86Regex = 'https://dldir1\\.qq\\.com/qqfile/qq/QQNT/[\\da-z]+/QQ([\\d.]+)_x86\\.exe'",
+            "$arm64Regex = 'https://dldir1\\.qq\\.com/qqfile/qq/QQNT/[\\da-z]+/QQ([\\d.]+)_arm64\\.exe'",
+            "$x64Match = [regex]::Match($webContent, $x64Regex)",
+            "$x86Match = [regex]::Match($webContent, $x86Regex)",
+            "$arm64Match = [regex]::Match($webContent, $arm64Regex)",
+            "if ($x64Match.Success -and $x86Match.Success -and $arm64Match.Success) {",
+            "    $version = $x64Match.Groups[1].Value",
+            "    $x64Url = $x64Match.Groups[0].Value",
+            "    $x86Url = $x86Match.Groups[0].Value",
+            "    $arm64Url = $arm64Match.Groups[0].Value",
+            "    $result = \"$version|$x64Url|$x86Url|$arm64Url\"",
+            "    return $result",
+            "}"
         ],
-        "regex": "QQNT/Windows/QQ_([\\d\\.]+)_([\\d]+)_x64_01.exe",
-        "replace": "${1}.${2}"
+        "regex": "^(?<version>[\\d.]+)\\|(?<x64>.+)\\|(?<x86>.+)\\|(?<arm64>.+)$"
     },
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Windows/QQ_$match1_$match2_x64_01.exe#/dl.7z"
+                "url": "$matchX64#/dl.7z"
             },
             "32bit": {
-                "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Windows/QQ_$match1_$match2_x86_01.exe#/dl.7z"
-            },
-            "arm64": {
-                "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Windows/QQ_$match1_$match2_arm64_01.exe#/dl.7z"
+                "url": "$matchX86#/dl.7z"
             }
         }
     }
