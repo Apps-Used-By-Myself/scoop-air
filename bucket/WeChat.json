@@ -9,12 +9,8 @@
     "notes": "Scoop don't persist WeChat data.",
     "architecture": {
         "64bit": {
-            "url": "https://dldir1v6.qq.com/weixin/Windows/WeChatSetup.exe#/dl.7z",
+            "url": "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.12.15/WeChatSetup-3.9.12.15.exe#/dl.7z",
             "hash": "76b4d0f4dc28a679bea09b2471444956e43680982b31eec9584e9ccf695046d9"
-        },
-        "32bit": {
-            "url": "https://dldir1v6.qq.com/weixin/Windows/WeChatSetup_x86.exe#/dl.7z",
-            "hash": "897f69c03f8d5d10199048c71353400d92d4cad16cdb41fdb7d25d7ad3b6317a"
         }
     },
     "extract_dir": "[3.9.12.15]",
@@ -25,19 +21,16 @@
         ]
     ],
     "checkver": {
-        "script": [
-            "$resp = Invoke-WebRequest -UseBasicParsing -Uri 'https://luban.m.qq.com/api/public/software-manager/softwareProxy' -Body 'cmdid=3318&jprxReq%5Breq%5D%5Bsoft_id_list%5D%5B%5D=11488' -Method 'POST'",
-            "Write-Output $resp.Content"
-        ],
-        "jsonpath": "$..ver_name"
+        "github": "https://github.com/tom-snow/wechat-windows-versions"
     },
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://dldir1v6.qq.com/weixin/Windows/WeChatSetup.exe#/dl.7z"
-            },
-            "32bit": {
-                "url": "https://dldir1v6.qq.com/weixin/Windows/WeChatSetup_x86.exe#/dl.7z"
+                "url": "https://github.com/tom-snow/wechat-windows-versions/releases/download/v$version/WeChatSetup-$version.exe#/dl.7z",
+                "hash": {
+                    "url": "https://github.com/tom-snow/wechat-windows-versions/releases/tag/v$version",
+                    "regex": "Sha256:\\s*$sha256"
+                }
             }
         },
         "extract_dir": "[$version]"
