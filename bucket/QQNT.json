@@ -1,5 +1,5 @@
 {
-    "version": "9.9.15.28327",
+    "version": "9.9.15.28418",
     "homepage": "https://im.qq.com/pcqq/index.shtml",
     "description": "(Beta version with LiteLoaderQQNT patch) An instant messaging software service developed by Tencent, build with Electron.",
     "license": {
@@ -13,12 +13,12 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/512caf78/QQ9.9.15.28327_x64.exe#/dl.7z",
-            "hash": "6dc60f581891a282c6aae9e873a0b5555bc65eaa4f51d8779934ebd0bdb689a9"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/46d323ba/QQ9.9.15.28418_x64_QQinner.exe#/dl.7z",
+            "hash": "22e3987051ee92b23927d51738adf97e60f77f30145bdb067cdd640efe14b1d0"
         },
         "32bit": {
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/fe485b46/QQ9.9.15.28327_x86.exe#/dl.7z",
-            "hash": "0f472dd8e466951095c3e8debef484628d7ba72c439d62368c04bce1610049b0"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/12076cc6/QQ9.9.15.28418_x86_QQinner.exe#/dl.7z",
+            "hash": "a41f0e69820e51012b71a49c182118c6ef59bb5913cecbd7920b752c620922c0"
         }
     },
     "extract_dir": "Files",
@@ -56,9 +56,9 @@
         "script": [
             "$url = 'https://telemetr.io/en/channels/1606833156-qqupdates'",
             "$webContent = (Invoke-WebRequest -Uri $url).Content",
-            "$x64Regex = 'https://dldir1\\.qq\\.com/qqfile/qq/QQNT/[\\da-z]+/QQ([\\d.]+)_x64\\.exe'",
-            "$x86Regex = 'https://dldir1\\.qq\\.com/qqfile/qq/QQNT/[\\da-z]+/QQ([\\d.]+)_x86\\.exe'",
-            "$arm64Regex = 'https://dldir1\\.qq\\.com/qqfile/qq/QQNT/[\\da-z]+/QQ([\\d.]+)_arm64\\.exe'",
+            "$x64Regex = 'https://dldir1\\.qq\\.com/qqfile/qq/QQNT/[\\da-z]+/QQ([\\d.]+)_x64(_QQinner)?\\.exe'",
+            "$x86Regex = 'https://dldir1\\.qq\\.com/qqfile/qq/QQNT/[\\da-z]+/QQ([\\d.]+)_x86(_QQinner)?\\.exe'",
+            "$arm64Regex = 'https://dldir1\\.qq\\.com/qqfile/qq/QQNT/[\\da-z]+/QQ([\\d.]+)_arm64(_QQinner)?\\.exe'",
             "$x64Match = [regex]::Match($webContent, $x64Regex)",
             "$x86Match = [regex]::Match($webContent, $x86Regex)",
             "$arm64Match = [regex]::Match($webContent, $arm64Regex)",
