@@ -9,11 +9,10 @@
     "notes": "Scoop don't persist WeChat data.",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.12.17/WeChatSetup-3.9.12.17.exe#/dl.7z",
-            "hash": "4985f96235154fc4176e3972f14709f5f10fc0606e5589075a6da9b6dc7fccd3"
+            "url": "https://dldir1v6.qq.com/weixin/Windows/WeChat_3.9.12_update17.zip",
+            "hash": "8b78896a43989e5f2d16ae4d3d74b3bf7109a00dc42feec18fa0fc7d519d52d8"
         }
     },
-    "extract_dir": "[3.9.12.17]",
     "shortcuts": [
         [
             "WeChat.exe",
@@ -26,13 +25,8 @@
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://github.com/tom-snow/wechat-windows-versions/releases/download/v$version/WeChatSetup-$version.exe#/dl.7z",
-                "hash": {
-                    "url": "https://github.com/tom-snow/wechat-windows-versions/releases/tag/v$version",
-                    "regex": "Sha256:\\s*$sha256"
-                }
+                "url": "https://dldir1v6.qq.com/weixin/Windows/WeChat_$majorVersion.$minorVersion.$patchVersion_update$buildVersion.zip"
             }
-        },
-        "extract_dir": "[$version]"
+        }
     }
 }
