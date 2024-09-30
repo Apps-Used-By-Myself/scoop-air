@@ -1,5 +1,5 @@
 {
-    "version": "3.9.12.15",
+    "version": "3.9.12.17",
     "description": "Free messaging and calling app by Tencent",
     "homepage": "https://pc.weixin.qq.com/",
     "license": {
@@ -9,11 +9,11 @@
     "notes": "Scoop don't persist WeChat data.",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.12.15/WeChatSetup-3.9.12.15.exe#/dl.7z",
-            "hash": "76b4d0f4dc28a679bea09b2471444956e43680982b31eec9584e9ccf695046d9"
+            "url": "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.12.17/WeChatSetup-3.9.12.17.exe#/dl.7z",
+            "hash": "4985f96235154fc4176e3972f14709f5f10fc0606e5589075a6da9b6dc7fccd3"
         }
     },
-    "extract_dir": "[3.9.12.15]",
+    "extract_dir": "[3.9.12.17]",
     "shortcuts": [
         [
             "WeChat.exe",
