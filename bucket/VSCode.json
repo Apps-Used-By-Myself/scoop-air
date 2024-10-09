@@ -14,11 +14,11 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://code.visualstudio.com/sha/download?version=1.94.1&os=win32-x64-archive#/dl.zip",
+            "url": "https://vscode.download.prss.microsoft.com/dbazure/download/stable/e10f2369d0d9614a452462f2e01cdc4aa9486296/VSCode-win32-x64-1.94.1.zip",
             "hash": "9a0c305b531527d254c13d26926b0f2c4c0710bd64c3abf1f2d9f4443c8ba037"
         },
         "arm64": {
-            "url": "https://code.visualstudio.com/sha/download?version=1.94.1&os=win32-arm64-archive#/dl.zip",
+            "url": "https://vscode.download.prss.microsoft.com/dbazure/download/stable/e10f2369d0d9614a452462f2e01cdc4aa9486296/VSCode-win32-arm64-1.94.1.zip",
             "hash": "13100b018c5d3e74d5b4e666a67b3a8a84a6a52624788471fa61a44c3f26dae8"
         }
     },
@@ -57,19 +57,19 @@
     },
     "checkver": {
         "url": "https://code.visualstudio.com/sha?build=stable",
-        "jsonpath": "$.products[?(@.platform.os == 'win32-x64-archive')].name"
+        "regex": "(?<x64>https://[a-z\\d./]+/VSCode-win32-x64-(?<version>[\\d.]+)\\.zip).+(?<arm64>https://[a-z\\d./]+/VSCode-win32-arm64-\\k<version>\\.zip)"
     },
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://code.visualstudio.com/sha/download?version=$version&os=win32-x64-archive#/dl.zip",
+                "url": "$matchX64",
                 "hash": {
                     "url": "https://code.visualstudio.com/sha?build=stable",
                     "jsonpath": "$.products[?(@.platform.os == 'win32-x64-archive')].sha256hash"
                 }
             },
             "arm64": {
-                "url": "https://code.visualstudio.com/sha/download?version=$version&os=win32-arm64-archive#/dl.zip",
+                "url": "$matchArm64",
                 "hash": {
                     "url": "https://code.visualstudio.com/sha?build=stable",
                     "jsonpath": "$.products[?(@.platform.os == 'win32-arm64-archive')].sha256hash"
