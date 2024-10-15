@@ -1,5 +1,5 @@
 {
-    "version": "9.9.15.28418",
+    "version": "_QQinner",
     "homepage": "https://im.qq.com/pcqq/index.shtml",
     "description": "(Beta version with LiteLoaderQQNT patch) An instant messaging software service developed by Tencent, build with Electron.",
     "license": {
@@ -13,12 +13,12 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/206bfa62/QQ9.9.15.28418_x64.exe#/dl.7z",
-            "hash": "99c9c0da086a0695a8290a8b2c84a0b6b2694b4eedd3d6c026a37d7f18b0ed0e"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/46d323ba/QQ9.9.15.28418_x64_QQinner.exe#/dl.7z",
+            "hash": "22e3987051ee92b23927d51738adf97e60f77f30145bdb067cdd640efe14b1d0"
         },
         "32bit": {
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/25937b39/QQ9.9.15.28418_x86.exe#/dl.7z",
-            "hash": "76c11a9fb259e2f4a24be428735b4dd90545ea5d61e54f5563f5449eb1de4aa0"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/12076cc6/QQ9.9.15.28418_x86_QQinner.exe#/dl.7z",
+            "hash": "a41f0e69820e51012b71a49c182118c6ef59bb5913cecbd7920b752c620922c0"
         }
     },
     "extract_dir": "Files",
