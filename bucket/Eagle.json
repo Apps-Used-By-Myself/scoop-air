@@ -1,5 +1,5 @@
 {
-    "version": "4.0.0.4",
+    "version": "4.0.0.5",
     "description": "A new way to collect, search and organize your image files in a logical way and all in one place.",
     "homepage": "https://eagle.cool/",
     "license": {
@@ -8,8 +8,8 @@
     },
     "architecture": {
         "64bit": {
-            "url": "https://eaglefile.oss-cn-shenzhen.aliyuncs.com/releases/Eagle-4.0-x64-build4.exe",
-            "hash": "ae2f038275516e835f9bb6190a3dcbb0766a20bd3faa85873c6e0fe20f89d042"
+            "url": "https://eaglefile.oss-cn-shenzhen.aliyuncs.com/releases/Eagle-4.0-x64-build5.exe",
+            "hash": "7200d6cb25f823673d15ebc4bafc61a22dd3d89f05a58188af8d6764c334c8bb"
         }
     },
     "shortcuts": [
