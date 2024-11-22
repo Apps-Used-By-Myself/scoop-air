@@ -21,7 +21,13 @@
     "persist": [
         "Config",
         "Data",
-        "History"
+        "History",
+        "PixPin.exe.WebView2\\EBWebView\\Local State"
+    ],
+    "pre_install": [
+        "Import-Module $(Join-Path $(Find-BucketDirectory -Root -Name air) scripts/AirUtils.psm1)",
+        "EnsureFile \"$persist_dir\\PixPin.exe.WebView2\\EBWebView\\Local State\"",
+        "Remove-Module -Name AirUtils"
     ],
     "checkver": {
         "script": [
