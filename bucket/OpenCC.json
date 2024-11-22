@@ -6,11 +6,11 @@
     "architecture": {
         "64bit": {
             "url": "https://ci.appveyor.com/api/projects/Carbo/opencc/artifacts/OpenCC.zip?branch=master&job=Environment:%20nodejs_version=none;%20Platform:%20x64#OpenCC.zip",
-            "hash": "8fb8fdd914ae1226d998ead33a104b0273879a72fd3860e293f7db423a340e3b"
+            "hash": "4f8aa3f7e1bd9b84f638f046467b0efb0475adacb1da70372434442f5e37a5af"
         },
         "32bit": {
             "url": "https://ci.appveyor.com/api/projects/Carbo/opencc/artifacts/OpenCC.zip?branch=master&job=Environment:%20nodejs_version=none;%20Platform:%20x86#OpenCC.zip",
-            "hash": "e5b97da8554724698cf7fc22a75cc2a5db0d4d279506725908f007534bce4569"
+            "hash": "a386819228c58831698f38e789a4d2668e37bb3ca1b30b7ceae43cea7b84029e"
         }
     },
     "extract_dir": "build",
