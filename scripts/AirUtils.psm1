@@ -273,4 +273,102 @@ function RemoveStartMenuItem {
     }
 }
 
-Export-ModuleMember -Function WriteLog, TestDirectoryEmpty, EnsureFile, EnsureDirectory, EnsureSetContent, EnsureHardLink, RemoveHardLink, EnsureJunction, RemoveJunction, RedirectDirectory, RemoveDesktopShortcut, RemoveStartMenuItem
+function SetEnvVariable {
+    [CmdletBinding(DefaultParameterSetName = 'Single')]
+    param (
+        [Parameter(Mandatory, ParameterSetName = 'Single')]
+        [string]$Name,
+
+        [Parameter(Mandatory, ParameterSetName = 'Single')]
+        [string]$Value,
+
+        [Parameter(Mandatory, ParameterSetName = 'Multiple')]
+        [hashtable]$Variables
+    )
+
+    try {
+        function SetSingleVariable {
+            param ($VarName, $VarValue)
+
+            if ($admin:IsAdmin) {
+                [Environment]::SetEnvironmentVariable($VarName, $VarValue, "Machine")
+                WriteLog "Added system environment variable: $VarName = $VarValue" Success
+            }
+            else {
+                [Environment]::SetEnvironmentVariable($VarName, $VarValue, "User")
+                WriteLog "Added user environment variable: $VarName = $VarValue" Success
+            }
+        }
+
+        switch ($PSCmdlet.ParameterSetName) {
+            'Single' {
+                SetSingleVariable -VarName $Name -VarValue $Value
+            }
+            'Multiple' {
+                foreach ($key in $Variables.Keys) {
+                    SetSingleVariable -VarName $key -VarValue $Variables[$key]
+                }
+            }
+        }
+    }
+    catch {
+        WriteLog "Failed to set environment variable(s): $_" Error
+    }
+}
+
+
+function RemoveEnvVariable {
+    [CmdletBinding(DefaultParameterSetName = 'Single')]
+    param (
+        [Parameter(Mandatory, ParameterSetName = 'Single')]
+        [string]$Name,
+
+        [Parameter(Mandatory, ParameterSetName = 'Multiple')]
+        [string[]]$Names
+    )
+
+    try {
+        function RemoveSingleVariable {
+            param ($VarName)
+
+            if ($admin:IsAdmin) {
+                $value = [Environment]::GetEnvironmentVariable($VarName, "Machine")
+                if ($null -eq $value) {
+                    WriteLog "System environment variable not found: $VarName" Warning
+                    return
+                }
+
+                [Environment]::SetEnvironmentVariable($VarName, $null, "Machine")
+                WriteLog "Removed system environment variable: $VarName" Success
+            }
+            else {
+                $value = [Environment]::GetEnvironmentVariable($VarName, "User")
+                if ($null -eq $value) {
+                    WriteLog "User environment variable not found: $VarName" Warning
+                    return
+                }
+
+                [Environment]::SetEnvironmentVariable($VarName, $null, "User")
+                WriteLog "Removed user environment variable: $VarName" Success
+            }
+        }
+
+        # 根据参数集处理
+        switch ($PSCmdlet.ParameterSetName) {
+            'Single' {
+                RemoveSingleVariable -VarName $Name
+            }
+            'Multiple' {
+                foreach ($varName in $Names) {
+                    RemoveSingleVariable -VarName $varName
+                }
+            }
+        }
+    }
+    catch {
+        WriteLog "Failed to remove environment variable(s): $_" Error
+    }
+}
+
+
+Export-ModuleMember -Function WriteLog, TestDirectoryEmpty, EnsureFile, EnsureDirectory, EnsureSetContent, EnsureHardLink, RemoveHardLink, EnsureJunction, RemoveJunction, RedirectDirectory, RemoveDesktopShortcut, RemoveStartMenuItem, SetEnvVariable, RemoveEnvVariable
