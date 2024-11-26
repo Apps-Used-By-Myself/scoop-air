@@ -333,7 +333,9 @@ function RemoveEnvVariable {
         function RemoveSingleVariable {
             param ($VarName)
 
-            if ($admin:IsAdmin) {
+            $isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+
+            if ($isAdmin) {
                 $value = [Environment]::GetEnvironmentVariable($VarName, "Machine")
                 if ($null -eq $value) {
                     WriteLog "System environment variable not found: $VarName" Warning
