@@ -290,7 +290,9 @@ function SetEnvVariable {
         function SetSingleVariable {
             param ($VarName, $VarValue)
 
-            if ($admin:IsAdmin) {
+            $isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+
+            if ($isAdmin) {
                 [Environment]::SetEnvironmentVariable($VarName, $VarValue, "Machine")
                 WriteLog "Added system environment variable: $VarName = $VarValue" Success
             }
