@@ -46,10 +46,7 @@
         "}",
         "# Configure Everything.ini",
         "if (!(Test-Path \"$persist_dir\\Everything.ini\")) {",
-        "    $ini_content = \"[Everything]
-app_data=0
-alpha_instance=0
-check_for_updates_on_startup=0\"",
+        "    $ini_content = \"[Everything]`napp_data=0`nalpha_instance=0`ncheck_for_updates_on_startup=0\"",
         "    Set-Content -Path \"$dir\\Everything.ini\" -Value $ini_content -Force -Encoding UTF8;",
         "}"
     ],
