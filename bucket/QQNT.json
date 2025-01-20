@@ -7,10 +7,6 @@
         "url": "https://ti.qq.com/agreement/index.html"
     },
     "notes": "Scoop don't persist QQNT data.",
-    "depends": [
-        "LiteLoaderQQNT",
-        "QQNTPatcher-DllHijack"
-    ],
     "architecture": {
         "64bit": {
             "url": "https://dldir1.qq.com/qqfile/qq/QQNT/4f38e5e6/QQ9.9.17.31363_x64.exe#/dl.7z",
@@ -27,30 +23,6 @@
             "QQ.exe",
             "QQ"
         ]
-    ],
-    "pre_install": [
-        "Import-Module $(Join-Path $(Find-BucketDirectory -Root -Name air) scripts/AirUtils.psm1)",
-        "# Patch with DllHijack",
-        "$hijack_dir = scoop prefix 'QQNTPatcher-DllHijack'",
-        "$arch = switch ($architecture) {",
-        "    'arm64' { 'arm64' }",
-        "    '64bit' { 'x64' }",
-        "    default { 'x86' }",
-        "}",
-        "EnsureHardLink \"$dir\\dbghelp.dll\" \"$hijack_dir\\dbghelp_$arch.dll\"",
-        "# Import LiteLoaderQQNT",
-        "$version_text = $version -replace '(\\d+\\.\\d+\\.\\d+)\\.(\\d+)', '$1-$2'",
-        "$patch_js = \"$dir\\versions\\$version_text\\resources\\app\\app_launcher\\patch.js\"",
-        "$loader_dir = scoop prefix 'LiteLoaderQQNT'",
-        "$patch_content = 'require(String.raw`' + $loader_dir + '`)'",
-        "EnsureSetContent $patch_js $patch_content",
-        "# Import package",
-        "$package_json = \"$dir\\versions\\$version_text\\resources\\app\\package.json\"",
-        "$json_object = Get-Content -Path $package_json -Raw | ConvertFrom-Json",
-        "$json_object.main = \"./app_launcher/patch.js\"",
-        "$updated_content = $json_object | ConvertTo-Json -Depth 100",
-        "EnsureSetContent $package_json $updated_content",
-        "Remove-Module -Name AirUtils"
     ],
     "checkver": {
         "url": "https://telemetr.io/en/channels/1606833156-qqupdates",
