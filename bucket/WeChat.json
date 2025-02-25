@@ -1,5 +1,5 @@
 {
-    "version": "3.9.12.17",
+    "version": "3.9.12.45",
     "description": "Free messaging and calling app by Tencent",
     "homepage": "https://pc.weixin.qq.com/",
     "license": {
@@ -9,8 +9,8 @@
     "notes": "Scoop don't persist WeChat data.",
     "architecture": {
         "64bit": {
-            "url": "https://dldir1v6.qq.com/weixin/Windows/WeChat_3.9.12_update17.zip",
-            "hash": "8b78896a43989e5f2d16ae4d3d74b3bf7109a00dc42feec18fa0fc7d519d52d8"
+            "url": "https://dldir1v6.qq.com/weixin/Windows/WeChat_3.9.12_update45.zip",
+            "hash": "86a1450c0753d15d86500a5d49bd52f39aa7583e03390a9d80983b7effdcb0c3"
         }
     },
     "shortcuts": [
