@@ -1,5 +1,5 @@
 {
-    "version": "9.9.20.37012",
+    "version": "9.9.20.37051",
     "homepage": "https://im.qq.com/pcqq/index.shtml",
     "description": "(Beta version with LiteLoaderQQNT patch) An instant messaging software service developed by Tencent, build with Electron.",
     "license": {
@@ -9,12 +9,12 @@
     "notes": "Scoop don't persist QQNT data.",
     "architecture": {
         "64bit": {
-            "url": "https://dldir1v6.qq.com/qqfile/qq/QQNT/91ef50c0/QQ9.9.20.37012_x64.exe#/dl.7z",
-            "hash": "25d45c7311b85e970c1855e31d791d7d1e9f402f2257ed86df96750d5ea25956"
+            "url": "https://dldir1v6.qq.com/qqfile/qq/QQNT/d171451a/QQ9.9.20.37051_x64.exe#/dl.7z",
+            "hash": "b7c2571363d2e28d4a16268118cf5b9f27c84f93397603591471b0c79d654bbe"
         },
         "32bit": {
-            "url": "https://dldir1v6.qq.com/qqfile/qq/QQNT/60cdde6d/QQ9.9.20.37012_x86.exe#/dl.7z",
-            "hash": "31f66c7776aef0cafb2ccd9d2e9238ee380aa5e7e651739103f4d6cf891ea099"
+            "url": "https://dldir1v6.qq.com/qqfile/qq/QQNT/f437181c/QQ9.9.20.37051_x86.exe#/dl.7z",
+            "hash": "2917d2d41044b10105365d1eed78117cb6ffa281ed63f59ef5f8477d1aa979f0"
         }
     },
     "extract_dir": "Files",
