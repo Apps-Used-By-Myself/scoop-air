@@ -28,10 +28,10 @@
     ],
     "persist": "LRConfig.xml",
     "pre_install": [
-        "if (!(Test-Path \"$persist_dir\\LRConfig.xml\")) { New-Item \"$dir\\LRConfig.xml\" | Out-Null }",
         "Start-Process \"$dir\\LREditor.exe\" -WindowStyle Hidden",
         "Start-Sleep -Milliseconds 250",
-        "Get-Process | Where-Object { $_.Name -eq 'LREditor' } | ForEach-Object { Stop-Process -Id $_.Id } 2>&1 | Out-Null"
+        "Get-Process | Where-Object { $_.Name -eq 'LREditor' } | ForEach-Object { Stop-Process -Id $_.Id } 2>&1 | Out-Null",
+        "if (!(Test-Path \"$persist_dir\\LRConfig.xml\")) { New-Item \"$dir\\LRConfig.xml\" | Out-Null }"
     ],
     "uninstaller": {
         "script": [
