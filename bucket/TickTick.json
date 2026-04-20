@@ -1,5 +1,5 @@
 {
-    "version": "8.0.5.0",
+    "version": "8.0.6.0",
     "description": "(Chinese version) A Todo list, checklist and task manager app.",
     "homepage": "https://dida365.com/",
     "license": {
@@ -8,12 +8,12 @@
     },
     "architecture": {
         "64bit": {
-            "url": "https://cdn.dida365.cn/download/win64/dida_win_setup_release_x64_8050.exe",
-            "hash": "31eaec949a0c0ef4b4aaebfc92f271fcf8b6cbc8b6268df3048ad5b72e129eaf"
+            "url": "https://cdn.dida365.cn/download/win64/dida_win_setup_release_x64_8060.exe",
+            "hash": "607c8049e7017f8284a377c1e0b583f343b8af7bef164ad4a0f0bbfcf3310151"
         },
         "32bit": {
-            "url": "https://cdn.dida365.cn/download/win/dida_win_setup_release_x86_8050.exe",
-            "hash": "c197001a3c896d1c4c8e1e41aaec5c362ad0853ea54a21d0df4917300ce91fd1"
+            "url": "https://cdn.dida365.cn/download/win/dida_win_setup_release_x86_8060.exe",
+            "hash": "340048c27d9850294a3ffa1b03fcdabe2a7724682f6c5bcca7bc34be487d4ce4"
         }
     },
     "innosetup": true,
