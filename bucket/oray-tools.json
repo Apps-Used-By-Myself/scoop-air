@@ -7,7 +7,12 @@
         "64bit": {
             "url": "https://github.com/desktop-tools-which-may-be-useful/oray-tools/releases/download/v0.1.5/windows-x86_64.exe",
             "hash": "7591a1a66cad243d2fd90b917feaf895b933416bb38468b0ceb0894807a13852",
-            "bin": "oray-tools.exe"
+            "bin": [
+                [
+                    "windows-x86_64.exe",
+                    "oray-tools"
+                ]
+            ]
         }
     },
     "checkver": "github",
