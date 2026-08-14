@@ -1,12 +1,12 @@
 {
-    "version": "0.1.5",
+    "version": "0.2.5",
     "homepage": "https://github.com/desktop-tools-which-may-be-useful/oray-tools",
     "description": "Command-line control of Oray smart plugs. Auth via the device's API, persist tokens in a local config file, and switch plugs from a terminal.",
     "license": "MIT",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/desktop-tools-which-may-be-useful/oray-tools/releases/download/v0.1.5/windows-x86_64.exe",
-            "hash": "7591a1a66cad243d2fd90b917feaf895b933416bb38468b0ceb0894807a13852",
+            "url": "https://github.com/desktop-tools-which-may-be-useful/oray-tools/releases/download/v0.2.5/windows-x86_64.exe",
+            "hash": "4cc44a2556d664db13bb7da992dffa037c8fff5394aa5af787dee0eaaa1695f5",
             "bin": [
                 [
                     "windows-x86_64.exe",
