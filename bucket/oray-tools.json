@@ -7,13 +7,11 @@
         "64bit": {
             "url": "https://github.com/desktop-tools-which-may-be-useful/oray-tools/releases/download/v0.2.5/windows-x86_64.exe",
             "hash": "4cc44a2556d664db13bb7da992dffa037c8fff5394aa5af787dee0eaaa1695f5",
-            "bin": [
-                [
-                    "windows-x86_64.exe",
-                    "oray-tools"
-                ]
-            ]
+            "bin": "oray-tools.exe"
         }
+    },
+    "installer": {
+        "script": "Move-Item \"$dir\\windows-x86_64.exe\" \"$dir\\oray-tools.exe\" -Force"
     },
     "checkver": "github",
     "autoupdate": {
